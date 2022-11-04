@@ -1,0 +1,125 @@
+* {
+    box-sizing: border-box !important;
+}
+
+.img1 {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.pexels.com/photos/9572688/pexels-photo-9572688.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 50vh;
+    width: 100%;
+}
+
+.img2 {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.pexels.com/photos/38537/woodland-road-falling-leaf-natural-38537.jpeg?auto=compress&cs=tinysrgb&w=600');
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 50vh;
+    width: 100%;
+}
+
+.img3 {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://media.istockphoto.com/photos/student-searching-books-picture-id910852368?b=1&k=20&m=910852368&s=170667a&w=0&h=kP_sFxeOS-R8ZgOCzg2_Kr5VXIZqPnGx00Pu4UEggAY=');
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 50vh;
+    width: 100%;
+}
+.imgg{
+    background-image: url(./images/bck.jpg);
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+}
+
+.main-box1 {
+    margin: 0;
+    position: absolute;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.box1 {
+    /* margin: auto; */
+    display: flex;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.d-flex {
+    /* margin: auto; */
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.sidebar {
+    position: fixed !important;
+    top: 60px;
+    left: 0;
+    border-right: 2px solid darkblue;
+    height: 100vh;
+}
+
+.form1 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    
+}
+
+.txtfld {
+    margin-bottom: 6px !important;
+}
+
+.m-top {
+    margin-top: 30px;
+}
+
+.m-top2 {
+    margin-top: 70px;
+}
+
+.d-flex2 {
+    display: flex !important;
+    /* flex-direction: column; */
+}
+
+.d-flex3 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.container1 {
+    overflow-x: auto;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 50px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.txtxfld2 {
+    border: 1px solid grey;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.apbar{
+    background-color: rgba(0,0,139,0.8) !important;
+}
+.addstd{
+    font-weight: bolder !important;
+}
+
+/* .srch{
+    height: 80px !important;
+    float: right;
+} */

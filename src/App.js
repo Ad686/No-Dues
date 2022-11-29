@@ -9,6 +9,8 @@ import IssueReq from './components/issuerequest';
 import BookIssued from './components/BookIssued';
 import BookReq from './components/BookReq';
 import GetReqBook from './components/GetReqBook';
+import StdBookIssued from './components/stdbookissue';
+
 
 function App() {
       return (
@@ -23,6 +25,8 @@ function App() {
                         <Route path="/booksissued" element={<BookIssued/>}/>
                         <Route path="/bookrequest" element={<BookReq/>}/>
                         <Route path="/bookrequests" element={<GetReqBook/>}/>
+                        <Route path="/stdBookIssued" element={<StdBookIssued/>}/>
+
                   </Routes>
             </Router>
       );

@@ -60,24 +60,24 @@ export default function Home() {
     return (
         <>
             <Dialog open={opn} onClose={() => setopn(!opn)} >
-                <DialogTitle>lib. Login</DialogTitle>
+                <DialogTitle>Librarian Login</DialogTitle>
                 <DialogContent sx={{ width: 500 }}>
                     <form onSubmit={login1}>
-                        <TextField autoComplete="off" InputProps={{ sx: { height: 38 } }} name="id" placeholder="user id" type='text' fullWidth required/><br /><br />
+                        <TextField autoComplete="off"  InputProps={{ sx: { height: 38 } }} name="id" placeholder="user id" type='text' fullWidth required/><br /><br />
                         <TextField autoComplete="off" InputProps={{ sx: { height: 38 } }} name="pass" placeholder="password" type='password' fullWidth required/><br /><br />
-                        <Button type='submit'>login</Button>
+                        <Button type='submit' variant="outlined">Login</Button>
                     </form>
                 </DialogContent>
                 <DialogActions>
                 </DialogActions>
             </Dialog>
             <Dialog open={opn1} onClose={() => setopn1(!opn1)} >
-                <DialogTitle>std. Login</DialogTitle>
+                <DialogTitle>Student Login</DialogTitle>
                 <DialogContent sx={{ width: 500 }}>
                     <form onSubmit={login2}>
                         <TextField autoComplete="off" InputProps={{ sx: { height: 38 } }} name="id" placeholder="user id" type='text' fullWidth required/><br /><br />
                         <TextField autoComplete="off" InputProps={{ sx: { height: 38 } }} name="pass" placeholder="password" type='password' fullWidth required/><br /><br />
-                        <Button type='submit'>login</Button>
+                        <Button type='submit' variant="outlined">Login</Button>
                     </form>
                 </DialogContent>
                 <DialogActions>
@@ -100,11 +100,21 @@ export default function Home() {
             
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}  className="imgg ">
                     {/* <img src={bck} width={'100%'} /> */}
-                    <Grid item xl={6} lg={6} md={6} sm={6} xs={12} className="box1">
-                    <Typography variant="h4">Login Here</Typography>
+                    <br/>
+            <br/>
+            <br/><br/>
+            <br/>
+            <br/><br/>
+            <br/>
+            <br/><br/>
+            <br/>
+            <br/><br/>
+            <br/>
+            <br/> <Grid item xl={6} lg={6} md={6} sm={6} xs={12} className="box1">
+                    <Typography variant="h2" className="hh4">LOGIN HERE</Typography>
                     <Box className="m-top">
-                        <Button  variant="outlined" onClick={() => setopn(!opn)}>Login As Librarian</Button>
-                        <Button variant="outlined" onClick={() => setopn1(!opn1)}>Login As Student</Button>
+                        <Button  variant="contained" onClick={() => setopn(!opn)}>Login As Librarian</Button>&nbsp;&nbsp;&nbsp;
+                        <Button variant="contained" color="secondary" onClick={() => setopn1(!opn1)}>Login As Student</Button>
                     </Box>
                 </Grid>
                 </Grid>

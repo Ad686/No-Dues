@@ -1,5 +1,5 @@
 import { BookmarkAdded, CollectionsBookmark, FeaturedPlayList, Home, LibraryAdd, LibraryBooks, Message, People, PowerSettingsNew, Send } from "@mui/icons-material";
-import { AppBar, Box, Button, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from "@mui/material";
+import { AppBar, Avatar, Box, Button, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -59,7 +59,8 @@ export default function Navbar2() {
             </Grid>
 
             <AppBar className="apbar" >
-                <Toolbar>
+                 <Toolbar>
+                 <Avatar src="https://static.vecteezy.com/system/resources/previews/000/585/835/original/vector-book-reading-logo-and-symbols-template-icons.jpg"></Avatar>
                     <Typography variant="h5" sx={{margin:'auto'}}> 
                         Central Library
                     </Typography>

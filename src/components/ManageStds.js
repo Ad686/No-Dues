@@ -307,7 +307,7 @@ export default function ManageStd() {
                 <Grid item lg={9} md={9} sm={11} xs={11} sx={{ mt: { md: 10, sm: 10, xs: 8 }, ml: { md: 25, sm: 5, xs: 2 }, display: { sm: 'flex', xs: "block" }, flexDirection: 'column' }}>
                     <Grid item lg={7} md={7} sm={7} xs={12}>
                         <Button variant="outlined" onClick={() => setopn(!opn)} className="addstd" size="large">Add Student</Button>&nbsp;&nbsp;&nbsp;
-                        <TextField id="text-field" label="🔍Search" variant="outlined"  size="large" className="srch"  InputProps={{ sx: { height: 38} }}/>
+                        {/* <TextField id="text-field" label="🔍Search" variant="outlined"  size="large" className="srch"  InputProps={{ sx: { height: 38} }}/> */}
                         <Box>
                             <Collapse in={opn}>
                                 <form encType="multipart/form-data" className="form1" onSubmit={addstd} style={{ marginTop: '11px' }}>

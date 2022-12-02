@@ -63,7 +63,8 @@ export default function Home() {
                 <DialogTitle>Librarian Login</DialogTitle>
                 <DialogContent sx={{ width: 500 }}>
                     <form onSubmit={login1}>
-                        <TextField autoComplete="off"  InputProps={{ sx: { height: 38 } }} name="id" placeholder="user id" type='text' fullWidth required/><br /><br />
+                        <TextField autoComplete="off" 
+                         InputProps={{ sx: { height: 38 } }} name="id" placeholder="user id" type='text' fullWidth required/><br /><br />
                         <TextField autoComplete="off" InputProps={{ sx: { height: 38 } }} name="pass" placeholder="password" type='password' fullWidth required/><br /><br />
                         <Button type='submit' variant="outlined">Login</Button>
                     </form>

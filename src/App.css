@@ -133,10 +133,15 @@
 @media only screen and (max-width:550px )
 {
 .imgg{
-    background-image: url(./images/bck1.jpg);
+    background-image: url(./images/18355626_73Z_2108.w023.n001.896B.p1.896.jpg);
     background-size: cover !important;
     background-repeat: no-repeat;
     background-position: center;
     height: 100vh;
+   
+}
+.hh4{
+    color:white;
+    /* font-weight: bolder; */
 }
 }

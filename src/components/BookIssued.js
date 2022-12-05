@@ -20,21 +20,32 @@ export default function BookIssued() {
         }
     }, [])
 
+    console.log(std);
+
 
     const [data, setdata] = useState([])
     function getissbook() {
         var ar = []
-        db.collection('AcceptIssue').onSnapshot((succ) => {
+        db.collection('AcceptIssue').where('StdId', '==', 'std000000').onSnapshot((succ) => {
             succ.forEach((abc) => {
                 ar.push(abc)
                 console.log(abc.data())
             })
             setdata(ar)
         })
+        // db.collection('AcceptIssue').where('id', '==', std).onSnapshot((get) => {
+        //     console.log(get)
+        //     setdata(get.docs.map((item) => ({
+        //         data: item.data(),
+        //         id: item.id
+        //     })))
+        // })
+
     }
     useEffect(() => {
         getissbook()
     }, [])
+
 
 
     return (

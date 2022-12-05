@@ -44,11 +44,11 @@ export default function Home() {
             if (succ.size == 0) {
                 alert("wrong id or password")
             } else {
-                alert("login successful")
+                // alert("login successful")
                 succ.forEach((abc) => {
                     alert("login successful")
-                    console.log(abc)
-                    localStorage.setItem("StudentID", abc.id)
+                    console.log(id)
+                    localStorage.setItem("StudentID", id)
                     console.log(abc.id)
                     navi("/books")
                 })

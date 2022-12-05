@@ -13,6 +13,8 @@ export default function BookIssued() {
     var navi = useNavigate()
     var std = localStorage.getItem("StudentID")
 
+    console.log(std);
+
     useEffect(() => {
         if (!std) {
             alert("login first")
@@ -26,7 +28,7 @@ export default function BookIssued() {
     const [data, setdata] = useState([])
     function getissbook() {
         var ar = []
-        db.collection('AcceptIssue').where('StdId', '==', 'std000000').onSnapshot((succ) => {
+        db.collection('AcceptIssue').where('StdId', '==', std).onSnapshot((succ) => {
             succ.forEach((abc) => {
                 ar.push(abc)
                 console.log(abc.data())

@@ -27,9 +27,9 @@ import SearchIcon from "@mui/icons-material/Search";
 
 export default function StdAllbook() {
     var navi = useNavigate();
-    const [search, setSearch] = useState("");
-    const [searchData, setSearchData] = useState([]);
-    const [book, setbook] = useState([]);
+    const [search, setSearch] = useState("");//first step
+    const [searchData, setSearchData] = useState([]);//second step
+    const [book, setbook] = useState([]);//change its place in third step
     var std1 = localStorage.getItem("StudentID");
 
     useEffect(() => {
@@ -39,23 +39,26 @@ export default function StdAllbook() {
         }
     }, []);
 
+    //fourth step to change the functionality of getting data
+
     function getdata() {
         var ar = [];
         db.collection("Added_Books")
             .orderBy("Date", "desc")
-            .onSnapshot((succ) => {
+            .onSnapshot((succ) => { //from here
                 setbook(
                     succ.docs.map((item) => ({
                         data: item.data(),
                         id: item.id,
                     }))
                 );
-            });
+            });//to here
     }
     useEffect(() => {
         getdata();
     }, []);
 
+    //fifth step to get all the searching books
     const getSearchBook = () => {
         if (search) {
             const newData = book.filter((item) => {
@@ -73,6 +76,7 @@ export default function StdAllbook() {
         }
     }
 
+    //sixth step
     useEffect(() => {
         getSearchBook()
     }, [search]);
@@ -204,6 +208,7 @@ export default function StdAllbook() {
                                 </TableRow>
                             </TableHead>
 
+                            //sevent step condition rendering//
                             <TableBody>
                                 {search
                                     ? searchData.map((val) => (

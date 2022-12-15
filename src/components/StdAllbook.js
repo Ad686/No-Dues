@@ -9,19 +9,19 @@ import { useNavigate } from "react-router-dom";
 export default function StdAllbook() {
 
     var navi = useNavigate()
-        var std1 = localStorage.getItem("StudentID")
-    
-        useEffect(() => {
-            if (!std1) {
-                alert("login first")
-                navi("/")
-            }
-        }, [])
+    var std1 = localStorage.getItem("StudentID")
+
+    useEffect(() => {
+        if (!std1) {
+            alert("login first")
+            navi("/")
+        }
+    }, [])
 
     const [book, setbook] = useState([])
     function getdata() {
         var ar = []
-        db.collection("Added_Books").orderBy("Date",'desc').onSnapshot((succ) => {
+        db.collection("Added_Books").orderBy("Date", 'desc').onSnapshot((succ) => {
             succ.forEach((abc) => {
                 ar.push(abc)
             })
@@ -68,26 +68,26 @@ export default function StdAllbook() {
         var allDetails = Object.assign(sDetails, x.data())
         console.log(allDetails)
 
-        db.collection("IssuesReq").where("Title","==",x.data().Title).get().then((succ)=>{
-            if(succ.size == 0){
+        db.collection("IssuesReq").where("Title", "==", x.data().Title).get().then((succ) => {
+            if (succ.size == 0) {
                 db.collection("IssuesReq").add({
-                    Name:sDetails.Name,
-                    SYear:sDetails.SYear,
-                    ClgId:sDetails.ClgId,
-                    Class:sDetails.Class,
-                    StdId:sDetails.StdId,
-                    Author:x.data().Author,
-                    Image:x.data().Image,
-                    Title:x.data().Title,
-                    BYear:x.data().Year
-                }).then((succc)=>{
-                    alert("request sent")   
+                    Name: sDetails.Name,
+                    SYear: sDetails.SYear,
+                    ClgId: sDetails.ClgId,
+                    Class: sDetails.Class,
+                    StdId: sDetails.StdId,
+                    Author: x.data().Author,
+                    Image: x.data().Image,
+                    Title: x.data().Title,
+                    BYear: x.data().Year
+                }).then((succc) => {
+                    alert("request sent")
                 })
-            }else{
-                alert   ("already requested")
+            } else {
+                alert("already requested")
             }
         })
-      
+
 
     }
     return (

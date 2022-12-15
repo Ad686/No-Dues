@@ -5,11 +5,16 @@ import { useState } from "react";
 import { db } from "./firebase";
 import Navbar2 from "./navbar2";
 import { useNavigate } from "react-router-dom";
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function StdAllbook() {
 
     var navi = useNavigate()
+    const [search, setSearch] = useState('');
+    const [searchData, setSearchData] = useState([]);
+    const [book, setbook] = useState([])
     var std1 = localStorage.getItem("StudentID")
+
 
     useEffect(() => {
         if (!std1) {
@@ -18,19 +23,37 @@ export default function StdAllbook() {
         }
     }, [])
 
-    const [book, setbook] = useState([])
+
     function getdata() {
         var ar = []
         db.collection("Added_Books").orderBy("Date", 'desc').onSnapshot((succ) => {
-            succ.forEach((abc) => {
-                ar.push(abc)
-            })
-            setbook(ar)
+
+            succ.docs.map((item) => ({
+                data: item.data(),
+                id: item.id
+
+            }))
         })
     }
     useEffect(() => {
         getdata()
     }, [])
+    useEffect(() => {
+        if (search) {
+            const newData = book.filter(item => {
+                const itemData = item.data.Title
+                    ? item.da.Title.toUpperCase()
+                    : ''.toUpperCase();
+                const textData = search.toUpperCase();
+                return itemData.indexOf(textData) > -1;
+            });
+            setSearchData(newData);
+            console.log(newData);
+        } else {
+            setSearchData([]);
+            console.log('no data');
+        }
+    }, [search]);
 
     const [fnm, setfnm] = useState('')
     const [lnm, setlnm] = useState('')
@@ -96,6 +119,10 @@ export default function StdAllbook() {
             <Grid container className="">
                 <Grid item lg={10} md={10} sm={12} xs={12} sx={{ mt: { md: 10, xs: 10 }, ml: { md: 25, sm: 0 } }} >
                     <Typography variant="h4">All Available Book</Typography>
+                    <TextField id="text-field" placeholder="Search" variant="outlined" size="large" className="srch" onChange={(e) => setSearch(e.target.value)} />
+                    <Button variant="outlined" >Search</Button>
+
+
                     <Paper className="container1" elevation={0} sx={{ height: 'calc(100vh - 160px)', borderTop: '5px solid darkblue', overflowX: 'scroll' }}>
                         <Table>
                             <TableHead>
@@ -128,22 +155,22 @@ export default function StdAllbook() {
                                 {book.map((val) => (
                                     <TableRow>
                                         <TableCell align={'center'}>
-                                            <img src={val.data().Image} height={50} />
+                                            <img src={val.data.Image} height={50} />
                                         </TableCell>
                                         <TableCell align={'center'}>
-                                            <p>{val.data().Title}</p>
+                                            <p>{val.data.Title}</p>
                                         </TableCell>
                                         <TableCell align={'center'}>
-                                            <p>{val.data().Author}</p>
+                                            <p>{val.data.Author}</p>
                                         </TableCell>
                                         <TableCell align={'center'}>
-                                            <p>{val.data().Publisher}</p>
+                                            <p>{val.data.Publisher}</p>
                                         </TableCell>
                                         <TableCell align={'center'}>
-                                            <p>{val.data().Year}</p>
+                                            <p>{val.data.Year}</p>
                                         </TableCell>
                                         <TableCell align={'center'}>
-                                            <p>{val.data().Copies}</p>
+                                            <p>{val.data.Copies}</p>
                                         </TableCell>
                                         <TableCell align={'center'}>
                                             <Button onClick={() => issue(val)}>issue</Button>

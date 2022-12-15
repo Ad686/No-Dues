@@ -1,4 +1,4 @@
-import { CollectionsBookmark, FeaturedPlayList, Home, LibraryAdd, LibraryBooks, Message, People, PowerSettingsNew, Send } from "@mui/icons-material";
+import { BookmarkAdded, CollectionsBookmark, FeaturedPlayList, Home, LibraryAdd, LibraryBooks, Message, People, PowerSettingsNew, Send } from "@mui/icons-material";
 import { AppBar, Avatar, Box, Button, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from "@mui/material";
 import React from "react";
 import { useState } from "react";
@@ -46,6 +46,13 @@ export default function Navbar1() {
                                 </ListItemButton>
                             </ListItem>
                             <Divider />
+                            <ListItem>
+                                <ListItemButton onClick={() => page("AllBookIssued")}>
+                                    <FeaturedPlayList />Books Issued
+                                </ListItemButton>
+                            </ListItem>
+                            <Divider />
+                            
                             <ListItem>
                                 <ListItemButton onClick={() => page("addbook")}>
                                     <LibraryAdd />Add Book
@@ -95,6 +102,12 @@ export default function Navbar1() {
                             <ListItem>
                                 <ListItemButton onClick={() => page("bookrequests")}>
                                     <FeaturedPlayList />Book Request
+                                </ListItemButton>
+                            </ListItem>
+                            <Divider />
+                            <ListItem>
+                                <ListItemButton onClick={()=>page("allBookIssued")}>
+                                    <BookmarkAdded/>Books Issued
                                 </ListItemButton>
                             </ListItem>
                             <Divider />

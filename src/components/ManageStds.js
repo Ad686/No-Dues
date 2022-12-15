@@ -40,7 +40,7 @@ export default function ManageStd() {
         var F_Name = d.get('f_name');
         var L_Name = d.get('l_name');
         var ClgId = d.get("clg_id");
-        var Year = d.get("year");
+        var Batch = d.get("Batch");
         var Contact = d.get("contact");
         var Class = d.get('cls')
 
@@ -65,10 +65,10 @@ export default function ManageStd() {
 
         var num = /[0-9]/
         var abc2 = []
-        for (var i = 0; i < Year.length; i++) {
-            if (!num.test(Year[i])) {
-                abc2.push(Year[i])
-                // setyear("")
+        for (var i = 0; i < Batch.length; i++) {
+            if (!num.test(Batch[i])) {
+                abc2.push(Batch[i])
+                // setBatch("")
             }
         }
 
@@ -126,7 +126,7 @@ export default function ManageStd() {
                     db.collection("Add_Std").add({
                         FirstName: F_Name.toLocaleLowerCase(),
                         LastName: L_Name.toLocaleLowerCase(),
-                        Year: Number(Year),
+                        Batch: Number(Batch),
                         ClgId: ClgId,
                         Image: url,
                         Contact: Number(Contact),
@@ -164,7 +164,7 @@ export default function ManageStd() {
     const [fnm, setfnm] = useState('')
     const [lnm, setlnm] = useState('')
     const [cot, setcot] = useState()
-    const [year, setyear] = useState()
+    const [Batch, setBatch] = useState()
     const [clgId, setclgId] = useState()
     const [cls, setcls] = useState('')
     const [img, setimg] = useState('')
@@ -179,7 +179,7 @@ export default function ManageStd() {
         db.collection('Add_Std').doc(x.id).get().then((succ) => {
             setfnm(succ.data().FirstName)
             setlnm(succ.data().LastName)
-            setyear(succ.data().Year)
+            setBatch(succ.data().Batch)
             setcls(succ.data().Class)
             setpass(succ.data().Password)
             sets_id(succ.data().StdId)
@@ -219,7 +219,7 @@ export default function ManageStd() {
         var F_Name = fnm;
         var L_Name = lnm;
         var ClgId = clgId;
-        var Year = year;
+        var Batch = Batch;
         var Contact = cot;
         var Class = cls
 
@@ -242,10 +242,10 @@ export default function ManageStd() {
 
         var num = /[0-9]/
         var abc2 = []
-        for (var i = 0; i < Year.length; i++) {
-            if (!num.test(Year[i])) {
-                abc2.push(Year[i])
-                // setyear("")
+        for (var i = 0; i < Batch.length; i++) {
+            if (!num.test(Batch[i])) {
+                abc2.push(Batch[i])
+                // setBatch("")
             }
         }
 
@@ -282,7 +282,7 @@ export default function ManageStd() {
                     db.collection("Add_Std").doc(id).update({
                         FirstName: F_Name.toLocaleLowerCase(),
                         LastName: L_Name.toLocaleLowerCase(),
-                        Year: Number(Year),
+                        Batch: Number(Batch),
                         ClgId: ClgId,
                         Image: url,
                         Contact: Number(Contact),
@@ -333,7 +333,7 @@ export default function ManageStd() {
 
                                    {/* <FormControl></FormControl> */}
                                     <TextField className="txtfld" name="clg_id" placeholder="College Id" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="year" placeholder="Year" InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="Batch" placeholder="Batch" InputProps={{ sx: { height: 38 } }} />
                                     <TextField className="txtfld" name="contact" placeholder="Contact" InputProps={{ sx: { height: 38 } }} />
                                     <input type="file" className="txtxfld2 " name="img" />
                                     {prog != 0 ? (
@@ -358,12 +358,12 @@ export default function ManageStd() {
                                 <Box>
                                     <b>Name : </b><br />
                                     <b>Student Id : </b><br />
-                                    <b>Year : </b><br />
+                                    <b>Batch : </b><br />
                                 </Box>
                                 <Box>
                                     {val.data().FirstName} {val.data().LastName}<br />
                                     {val.data().StdId}<br />
-                                    {val.data().Year}<br /><br />
+                                    {val.data().Batch}<br /><br />
                                     <Button size="small" onClick={() => getdetails(val)}>view details</Button>
                                 </Box>
                             </Grid>
@@ -379,7 +379,7 @@ export default function ManageStd() {
                         <Box>
                             <p><b>Name : </b>{fnm} {lnm}</p>
                             <p><b>Class : </b>{cls}</p>
-                            <p><b>Year : </b>{year}</p>
+                            <p><b>Batch : </b>{Batch}</p>
                             <p><b>College Id : </b>{clgId}</p>
                             <p><b>Libraray Id : </b>{s_id} </p>
                             <p><b>Password : </b>{pass}</p>
@@ -418,7 +418,7 @@ export default function ManageStd() {
                         </FormControl>
 
                         <TextField className="txtfld" onChange={(e) => setclgId(e.target.value)} value={clgId} name="clg_id" placeholder="College Id" InputProps={{ sx: { height: 38 } }} />
-                        <TextField className="txtfld" onChange={(e) => setyear(e.target.value)} value={year} name="year" placeholder="Year" InputProps={{ sx: { height: 38 } }} />
+                        <TextField className="txtfld" onChange={(e) => setBatch(e.target.value)} value={Batch} name="Batch" placeholder="Batch" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" onChange={(e) => setcot(e.target.value)} value={cot} name="contact" placeholder="Contact" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" value={s_id} InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" value={pass} InputProps={{ sx: { height: 38 } }} />

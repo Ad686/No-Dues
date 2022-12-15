@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Collapse, Grid, TextField, Typography } from "@mui/material";
+import { Button, CircularProgress, Collapse, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import Navbar1 from "./navbar1";
 import { db, storage } from "./firebase";
@@ -10,6 +10,9 @@ export default function AddBook() {
 
         var navi = useNavigate()
         var lib = localStorage.getItem("LibrarianID")
+
+    const classes = [{ cls1: 'Engineering' }, { cls1: 'Non-Engineering' }, { cls1: 'Medical' }, { cls1: 'Arts' }, { cls1: 'Commerce' },]
+        
 
         useEffect(() => {
                 if (!lib) {
@@ -36,6 +39,8 @@ export default function AddBook() {
                 var author = auth.toLowerCase()
                 var publisher = pub.toLowerCase()
                 var copies = Number(cop)
+                var Class = d.get('cls')
+
 
                 var alpha = /[A-Z a-z,'&.+]/
                 var abc = []
@@ -123,8 +128,23 @@ export default function AddBook() {
                                                         <TextField className="txtfld" onChange={(e) => setauth(e.target.value)} value={auth} name="author" label="Author Name" InputProps={{ sx: { height: 38 } }} required/>
                                                         <TextField className="txtfld" onChange={(e) => setpub(e.target.value)} value={pub} name="publisher" label="Publisher" InputProps={{ sx: { height: 38 } }} required/>
                                                         <TextField className="txtfld" onChange={(e) => setyr(e.target.value)} value={yr} name="year" label="Year" InputProps={{ sx: { height: 38 } }} required/>
-                                                        <TextField className="txtfld" onChange={(e) => setcop(e.target.value)} value={cop} name="copies" label="Number Of Copies" InputProps={{ sx: { height: 38 } }} required/>
-                                                        <TextField className="txtfld" type='file' name="img" InputProps={{ sx: { height: 40 } }} />
+                                                        <TextField className="txtfld1" onChange={(e) => setcop(e.target.value)} value={cop} name="copies" label="Number Of Copies" InputProps={{ sx: { height: 38 } }} required/>
+                                                     
+                                                     {/* Book category */}
+                                                        <InputLabel id="demo-simple-select-label" >Category</InputLabel>
+                                        {/* )} */}
+                                        <Select
+                                            sx={{ height: 45 }}
+                                            className="txtfld"
+                                            // value={cls}
+                                            // onChange={(e) => setcls(e.target.value)}
+                                            name="cls"
+                                        >
+                                            {classes.map((val) => (
+                                                <MenuItem value={val.cls1}>{val.cls1}</MenuItem>
+                                            ))}
+                                        </Select>
+                                                        <InputLabel id="demo-simple-select-label" >Upload Book Image</InputLabel> <TextField className="txtfld" type='file' name="img" InputProps={{ sx: { height: 40 } }} />
                                                         {prog == 0 ? (
                                                                 <Button variant="contained" type='submit' fullWidth>Add Book</Button>
                                                         ) : (

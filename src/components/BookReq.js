@@ -1,5 +1,5 @@
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { db, storage } from "./firebase";
@@ -83,6 +83,9 @@ export default function BookReq() {
          })
       }
    }
+
+   const filePickerRef = useRef(null);
+
    return (
       <>
          <Navbar2 />
@@ -94,7 +97,9 @@ export default function BookReq() {
                   <TextField className="txtfld" name="author" placeholder="Author Name" InputProps={{ sx: { height: 38 } }} />
                   <TextField className="txtfld" name="publisher" placeholder="Publisher" InputProps={{ sx: { height: 38 } }} />
                   {/* <TextField className="txtfld" name="year" placeholder="Year" InputProps={{ sx: { height: 38 } }} /> */}
-                  <TextField className="txtfld" type='file' name="img" InputProps={{ sx: { height: 40 } }} />
+                  {/* <TextField className="txtfld" hidden={true} type='file' name="img" InputProps={{ sx: { height: 40 } }} /> */}
+                  <Button variant="contained" onClick={() => filePickerRef.current.click()} style={{ marginBottom: 10 }} fullWidth>upload file</Button>
+                  <input ref={filePickerRef} type="file" hidden className="txtfld" name="img" />
                   {prog == 0 ? (
                      <Button variant="contained" type='submit' fullWidth>Send Request</Button>
                   ) : (

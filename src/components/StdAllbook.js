@@ -125,6 +125,7 @@ export default function StdAllbook() {
         var allDetails = Object.assign(sDetails, x.data());
         console.log(allDetails);
 
+        
         db.collection("IssuesReq")
             .where("Title", "==", x.data().Title)
             .get()
@@ -149,6 +150,37 @@ export default function StdAllbook() {
                     alert("already requested");
                 }
             });
+
+             
+        // if(GetReqBook.length>4){
+        //     alert("You have already assign 4 books")
+        // }
+        // else{
+        //     db.collection("IssuesReq")
+        //     .where("Title", "==", x.data().Title)
+        //     .get()
+        //     .then((succ) => {
+        //         if (succ.size == 0) {
+        //             db.collection("IssuesReq")
+        //                 .add({
+        //                     Name: sDetails.Name,
+        //                     SYear: sDetails.SYear,
+        //                     ClgId: sDetails.ClgId,
+        //                     Class: sDetails.Class,
+        //                     StdId: sDetails.StdId,
+        //                     Author: x.data().Author,
+        //                     Image: x.data().Image,
+        //                     Title: x.data().Title,
+        //                     BYear: x.data().Year,
+        //                 })
+        //                 .then((succc) => {
+        //                     alert("request sent");
+        //                 });
+        //         } else {
+        //             alert("already requested");
+        //         }
+        //     });
+            
     }
     return (
         <>
@@ -208,7 +240,7 @@ export default function StdAllbook() {
                                 </TableRow>
                             </TableHead>
 
-                            //sevent step condition rendering//
+                            {/* //sevent step condition rendering// */}
                             <TableBody>
                                 {search
                                     ? searchData.map((val) => (

@@ -31,6 +31,7 @@ export default function StdAllbook() {
     const [searchData, setSearchData] = useState([]);//second step
     const [book, setbook] = useState([]);//change its place in third step
     var std1 = localStorage.getItem("StudentID");
+    const [issued, setIssued] = useState([])
 
     useEffect(() => {
         if (!std1) {
@@ -38,6 +39,8 @@ export default function StdAllbook() {
             navi("/");
         }
     }, []);
+
+    console.log({ std1 });
 
     //fourth step to change the functionality of getting data
 
@@ -81,7 +84,7 @@ export default function StdAllbook() {
         getSearchBook()
     }, [search]);
 
-    const [fnm, setfnm] = useState("");
+    const [fnm, setfnm] = useState([]);
     const [lnm, setlnm] = useState("");
     const [year, setyear] = useState();
     const [clgId, setclgId] = useState();
@@ -92,63 +95,75 @@ export default function StdAllbook() {
     function getstd() {
         if (std1) {
             db.collection("Add_Std")
-                .doc(std1)
-                .get()
-                .then((succ) => {
-                    // console.log(succ.data())
-                    setfnm(succ.data().FirstName);
-                    setlnm(succ.data().LastName);
-                    setyear(succ.data().Year);
-                    setcls(succ.data().Class);
-                    sets_id(succ.data().StdId);
-                    setclgId(succ.data().ClgId);
+                .where('StdId', '==', std1)
+                .onSnapshot((succ) => {
+                    setfnm(succ.docs.map((item) => ({
+                        data: item.data()
+                    })))
+                    // setlnm(succ.data().LastName);
+                    // setyear(succ.data().Year);
+                    // setcls(succ.data().Class);
+                    // sets_id(succ.data().StdId);
+                    // setclgId(succ.data().ClgId);
                 });
         }
     }
+
+    const getIssuesReq = () => {
+        db.collection('IssuesReq').onSnapshot((get) => {
+            setIssued(get.docs.map((item) => ({
+                data: item.data(),
+                id: item.id
+            })))
+        })
+    }
+
     useEffect(() => {
         getstd();
-    }, [std1]);
+        getIssuesReq()
+    }, []);
 
     const [req, setreq] = useState(false);
 
     function issue(x) {
-        // console.log(x.id)
-        // console.log(x.data())
+        if (issued.length >= 4) {
+            alert('you have already requested 4 books')
+        } else {
+            var sDetails = {
+                Name: fnm[0].data.FirstName + " " + fnm[0].data.LastName,
+                SYear: fnm[0].data.Year,
+                ClgId: fnm[0].data.ClgId,
+                Class: fnm[0].data.Class,
+                StdId: fnm[0].data.StdId,
+            };
+            var allDetails = Object.assign(sDetails, x);
+            console.log(allDetails, x);
 
-        var sDetails = {
-            Name: fnm + " " + lnm,
-            SYear: year,
-            ClgId: clgId,
-            Class: cls,
-            StdId: s_id,
-        };
-        var allDetails = Object.assign(sDetails, x.data());
-        console.log(allDetails);
-
-        db.collection("IssuesReq")
-            .where("Title", "==", x.data().Title)
-            .get()
-            .then((succ) => {
-                if (succ.size == 0) {
-                    db.collection("IssuesReq")
-                        .add({
-                            Name: sDetails.Name,
-                            SYear: sDetails.SYear,
-                            ClgId: sDetails.ClgId,
-                            Class: sDetails.Class,
-                            StdId: sDetails.StdId,
-                            Author: x.data().Author,
-                            Image: x.data().Image,
-                            Title: x.data().Title,
-                            BYear: x.data().Year,
-                        })
-                        .then((succc) => {
-                            alert("request sent");
-                        });
-                } else {
-                    alert("already requested");
-                }
-            });
+            db.collection("IssuesReq")
+                .where("Title", "==", x.data.Title)
+                .get()
+                .then((succ) => {
+                    if (succ.size == 0) {
+                        db.collection("IssuesReq")
+                            .add({
+                                Name: sDetails.Name,
+                                SYear: sDetails.SYear,
+                                ClgId: sDetails.ClgId,
+                                Class: sDetails.Class,
+                                StdId: sDetails.StdId,
+                                Author: x.data.Author,
+                                Image: x.data.Image,
+                                Title: x.data.Title,
+                                BYear: x.data.Year,
+                            })
+                            .then((succc) => {
+                                alert("request sent");
+                            });
+                    } else {
+                        alert("already requested");
+                    }
+                });
+        }
     }
     return (
         <>
@@ -208,7 +223,6 @@ export default function StdAllbook() {
                                 </TableRow>
                             </TableHead>
 
-                            //sevent step condition rendering//
                             <TableBody>
                                 {search
                                     ? searchData.map((val) => (

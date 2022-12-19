@@ -43,6 +43,7 @@ export default function StdBookIssued() {
             <Grid container>
             <Grid item lg={10} md={10} sm={12} xs={12} sx={{ mt: { md: 10, xs: 10 }, ml: { md: 25, sm: 0 } }} >
                     <Typography variant="h5">Issued Books</Typography>
+                
                     <Paper className="container1" elevation={0} sx={{ display: { md: 'block', xs: 'block' }, height: 'calc(100vh - 150px)', borderTop: '5px solid darkblue', overflowX: 'scroll' }}>
                         <Table>
                             <TableHead>

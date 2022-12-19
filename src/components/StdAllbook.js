@@ -217,6 +217,7 @@ export default function StdAllbook() {
                                     <TableCell align={"center"}>
                                         <b>Copies</b>
                                     </TableCell>
+                                    
                                     <TableCell colSpan={2} align={"center"}>
                                         Action
                                     </TableCell>

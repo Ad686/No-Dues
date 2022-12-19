@@ -1,5 +1,5 @@
 import { Button, CircularProgress, Collapse, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Navbar1 from "./navbar1";
 import { db, storage } from "./firebase";
 import firebase from "firebase";
@@ -115,6 +115,7 @@ export default function AddBook() {
                 }
 
         }
+        const filePickerRef = useRef(null);
 
         return (
                 <>
@@ -144,7 +145,9 @@ export default function AddBook() {
                                                 <MenuItem value={val.cls1}>{val.cls1}</MenuItem>
                                             ))}
                                         </Select>
-                                                        <InputLabel id="demo-simple-select-label" >Upload Book Image</InputLabel> <TextField className="txtfld" type='file' name="img" InputProps={{ sx: { height: 40 } }} />
+                                                        {/* <InputLabel id="demo-simple-select-label" >Upload Book Image</InputLabel> <TextField className="txtfld" type='file' name="img" InputProps={{ sx: { height: 40 } }} /> */}
+                                                        <Button variant="contained" onClick={() => filePickerRef.current.click()} style={{ marginBottom: 10 }} fullWidth>upload book image</Button>
+                  <input ref={filePickerRef} type="file" hidden className="txtfld" name="img" />
                                                         {prog == 0 ? (
                                                                 <Button variant="contained" type='submit' fullWidth>Add Book</Button>
                                                         ) : (

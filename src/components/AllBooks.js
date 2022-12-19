@@ -162,6 +162,14 @@ export default function AllBooks() {
             <Grid container className="">
                 <Grid item lg={10} md={10} sm={12} xs={12} sx={{ mt: { md: 10, xs: 10 }, ml: { md: 25, sm: 0 } }} >
                     <Typography variant="h3">All Available Book</Typography>
+                    <TextField
+                        id="text-field"
+                        placeholder="Search"
+                        variant="outlined"
+                        size="large"
+                        className="srch"
+                        // onChange={(e) => setSearch(e.target.value)}
+                    /> 
                     <Paper className="container1" elevation={0} sx={{ height: 'calc(100vh - 160px)', borderTop: '5px solid darkblue', overflowX: 'scroll' }}>
                         <Table>
                             <TableHead>

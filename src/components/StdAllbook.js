@@ -27,11 +27,11 @@ import SearchIcon from "@mui/icons-material/Search";
 
 export default function StdAllbook() {
     var navi = useNavigate();
-    const [search, setSearch] = useState("");//first step
-    const [searchData, setSearchData] = useState([]);//second step
-    const [book, setbook] = useState([]);//change its place in third step
+    const [search, setSearch] = useState(""); //first step
+    const [searchData, setSearchData] = useState([]); //second step
+    const [book, setbook] = useState([]); //change its place in third step
     var std1 = localStorage.getItem("StudentID");
-    const [issued, setIssued] = useState([])
+    const [issued, setIssued] = useState([]);
 
     useEffect(() => {
         if (!std1) {
@@ -48,14 +48,15 @@ export default function StdAllbook() {
         var ar = [];
         db.collection("Added_Books")
             .orderBy("Date", "desc")
-            .onSnapshot((succ) => { //from here
+            .onSnapshot((succ) => {
+                //from here
                 setbook(
                     succ.docs.map((item) => ({
                         data: item.data(),
                         id: item.id,
                     }))
                 );
-            });//to here
+            }); //to here
     }
     useEffect(() => {
         getdata();
@@ -65,11 +66,17 @@ export default function StdAllbook() {
     const getSearchBook = () => {
         if (search) {
             const newData = book.filter((item) => {
-                const itemData = item.data.Title
-                    ? item.data.Title.toUpperCase()
-                    : "".toUpperCase();
-                const textData = search.toUpperCase();
-                return itemData.indexOf(textData) > -1;
+                const textData = search.toLowerCase();
+                if (item.data.Title.toLowerCase().startsWith(textData)) {
+                    return item;
+                } else if (item.data.Publisher.toLowerCase().startsWith(textData)) {
+                    return item
+                }
+                else if (item.data.Author.toLowerCase().startsWith(textData)) {
+                    return item
+                } else {
+                    return null
+                }
             });
             setSearchData(newData);
             console.log(newData);
@@ -77,11 +84,11 @@ export default function StdAllbook() {
             setSearchData([]);
             console.log("no data");
         }
-    }
+    };
 
     //sixth step
     useEffect(() => {
-        getSearchBook()
+        getSearchBook();
     }, [search]);
 
     const [fnm, setfnm] = useState([]);
@@ -95,11 +102,13 @@ export default function StdAllbook() {
     function getstd() {
         if (std1) {
             db.collection("Add_Std")
-                .where('StdId', '==', std1)
+                .where("StdId", "==", std1)
                 .onSnapshot((succ) => {
-                    setfnm(succ.docs.map((item) => ({
-                        data: item.data()
-                    })))
+                    setfnm(
+                        succ.docs.map((item) => ({
+                            data: item.data(),
+                        }))
+                    );
                     // setlnm(succ.data().LastName);
                     // setyear(succ.data().Year);
                     // setcls(succ.data().Class);
@@ -110,24 +119,26 @@ export default function StdAllbook() {
     }
 
     const getIssuesReq = () => {
-        db.collection('IssuesReq').onSnapshot((get) => {
-            setIssued(get.docs.map((item) => ({
-                data: item.data(),
-                id: item.id
-            })))
-        })
-    }
+        db.collection("IssuesReq").onSnapshot((get) => {
+            setIssued(
+                get.docs.map((item) => ({
+                    data: item.data(),
+                    id: item.id,
+                }))
+            );
+        });
+    };
 
     useEffect(() => {
         getstd();
-        getIssuesReq()
+        getIssuesReq();
     }, []);
 
     const [req, setreq] = useState(false);
 
     function issue(x) {
         if (issued.length >= 4) {
-            alert('you have already requested 4 books')
+            alert("you have already requested 4 books");
         } else {
             var sDetails = {
                 Name: fnm[0].data.FirstName + " " + fnm[0].data.LastName,

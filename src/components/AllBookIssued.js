@@ -10,6 +10,9 @@ import Navbar1 from "./navbar1";
 export default function AllBookIssued() {
 
     var navi = useNavigate()
+    const [search, setSearch] = useState(""); //first step
+    const [searchData, setSearchData] = useState([]); //second step
+    const [book, setbook] = useState([]); //change its place in third step
     var std = localStorage.getItem("StudentID")
 
     useEffect(() => {
@@ -24,16 +27,50 @@ export default function AllBookIssued() {
     function getissbook() {
         var ar = []
         db.collection('AcceptIssue').onSnapshot((succ) => {
-            succ.forEach((abc) => {
-                ar.push(abc)
-                console.log(abc.data())
-            })
-            setdata(ar)
+            //from here
+            setbook(
+                succ.docs.map((item) => ({
+                    data: item.data(),
+                    id: item.id,
+                }))
+            );
         })
     }
     useEffect(() => {
         getissbook()
     }, [])
+    const getSearchBook = () => {
+        if (search) {
+            const newData = book.filter((item) => {
+                const textData = search.toLowerCase();
+                if (item.data.Title.toLowerCase().startsWith(textData)) {
+                    return item;
+                }
+                else if (item.data.Name.toLowerCase().startsWith(textData)) {
+                    return item
+                }
+                else if (item.data.ClgId.toLowerCase().startsWith(textData)) {
+                    return item
+                } 
+                else if (item.data.Class.toLowerCase().startsWith(textData)) {
+                    return item
+                }
+                else {
+                    return null
+                }
+            });
+            setSearchData(newData);
+            console.log(newData);
+        } else {
+            setSearchData([]);
+            console.log("no data");
+        }
+    };
+
+    //sixth step
+    useEffect(() => {
+        getSearchBook();
+    }, [search]);
 
 
     return (
@@ -48,8 +85,8 @@ export default function AllBookIssued() {
                         variant="outlined"
                         size="large"
                         className="srch"
-                        // onChange={(e) => setSearch(e.target.value)}
-                    /> 
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
                     <Paper className="container1" elevation={0} sx={{ display: { md: 'block', xs: 'block' }, height: 'calc(100vh - 150px)', borderTop: '5px solid darkblue', overflowX: 'scroll' }}>
                         <Table>
                             <TableHead>
@@ -64,7 +101,7 @@ export default function AllBookIssued() {
                                     <TableCell colSpan={2} sx={{ textAlign: 'center' }}><b>result</b></TableCell>
                                 </TableRow>
                             </TableHead>
-                            <TableBody>
+                            {/* <TableBody>
                                 {data.map((val) => (
                                     <TableRow>
                                         <TableCell>{val.data().ClgId}</TableCell>
@@ -85,6 +122,49 @@ export default function AllBookIssued() {
                                         )}</TableCell>
                                     </TableRow>
                                 ))}
+                            </TableBody> */}
+                            <TableBody>
+                                {search
+                                    ? searchData.map((val) => (
+                                        <TableRow>
+                                        <TableCell>{val.data.ClgId}</TableCell>
+                                        <TableCell>{val.data.Name}</TableCell>
+                                        <TableCell>{val.data.Class}</TableCell>
+                                        <TableCell>{val.data.StdId}</TableCell>
+                                        <TableCell>{val.data.SYear}</TableCell>
+                                        <TableCell>{val.data.Title}</TableCell>
+                                        <TableCell>{val.data.Author}</TableCell>
+                                        <TableCell>{(val.data.Status == 1) ? (
+                                            <>
+                                                accepted
+                                            </>
+                                        ) : (
+                                            <>
+                                                rejected
+                                            </>
+                                        )}</TableCell>
+                                    </TableRow>
+                                    ))
+                                    : book.map((val) => (
+                                        <TableRow>
+                                        <TableCell>{val.data.ClgId}</TableCell>
+                                        <TableCell>{val.data.Name}</TableCell>
+                                        <TableCell>{val.data.Class}</TableCell>
+                                        <TableCell>{val.data.StdId}</TableCell>
+                                        <TableCell>{val.data.SYear}</TableCell>
+                                        <TableCell>{val.data.Title}</TableCell>
+                                        <TableCell>{val.data.Author}</TableCell>
+                                        <TableCell>{(val.data.Status == 1) ? (
+                                            <>
+                                                accepted
+                                            </>
+                                        ) : (
+                                            <>
+                                                rejected
+                                            </>
+                                        )}</TableCell>
+                                    </TableRow>
+                                    ))}
                             </TableBody>
                         </Table>
                     </Paper>
@@ -93,4 +173,3 @@ export default function AllBookIssued() {
         </>
     )
 }
-

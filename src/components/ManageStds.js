@@ -13,7 +13,7 @@ export default function ManageStd() {
     var navi = useNavigate()
     const [search, setSearch] = useState(""); //first step
     const [searchData, setSearchData] = useState([]); //second step
-    const [student, setstudent] = useState([]); //change its place in third step
+    const [book, setbook] = useState([]); //change its place in third step
     var lib = localStorage.getItem("LibrarianID")
 
     useEffect(() => {
@@ -154,15 +154,53 @@ export default function ManageStd() {
     function getstd() {
         var ar = []
         db.collection('Add_Std').orderBy('Date', 'desc').get().then((succ) => {
-            succ.forEach((abc) => {
-                ar.push(abc)
-            })
-            setstd(ar)
+            //from here
+            setbook(
+                succ.docs.map((item) => ({
+                    data: item.data(),
+                    id: item.id,
+                }))
+            );
         })
     }
     useEffect(() => {
         getstd()
     }, [])
+
+    const getSearchBook = () => {
+        if (search) {
+            const newData = book.filter((item) => {
+                const textData = search.toLowerCase();
+                if (item.data.FirstName.toLowerCase().startsWith(textData)) {
+                    return item;
+                }
+                else if (item.data.LastName.toLowerCase().startsWith(textData)) {
+                    return item
+                }
+                else if (item.data.StdId.toLowerCase().startsWith(textData)) {
+                    return item
+                } 
+                // else if (item.data.Class.toLowerCase().startsWith(textData)) {
+                //     return item
+                // }
+                else {
+                    return null
+                }
+            });
+            setSearchData(newData);
+            console.log(newData);
+        } else {
+            setSearchData([]);
+            console.log("no data");
+        }
+    };
+
+    //sixth step
+    useEffect(() => {
+        getSearchBook();
+    }, [search]);
+
+
 
     const [fnm, setfnm] = useState('')
     const [lnm, setlnm] = useState('')
@@ -317,7 +355,7 @@ export default function ManageStd() {
                         // size="large"
                         InputProps={{ sx: { height: 38} }}
                         className="srch"
-                        // onChange={(e) => setSearch(e.target.value)}
+                        onChange={(e) => setSearch(e.target.value)}
                     />
                         {/* <TextField id="text-field" label="🔍Search" variant="outlined"  size="large" className="srch"  InputProps={{ sx: { height: 38} }}/> */}
                         <Box>
@@ -367,7 +405,7 @@ export default function ManageStd() {
                 <Grid item lg={10} md={10} sm={12} xs={12} sx={{ mt: { md: 3, xs: 2 }, ml: { md: 25, xs: 0 } }} >
                     <Typography variant="h3">Students</Typography>
 
-                    <Grid container sx={{ gap: { md: '0.1', sm: 2 }, justifyContent: { md: 'start', xs: 'center' } }}>
+                    {/* <Grid container sx={{ gap: { md: '0.1', sm: 2 }, justifyContent: { md: 'start', xs: 'center' } }}>
                         {std.map((val) => (
                             <Grid item md={3} sm={5} xs={9} sx={{ marginBottom: { sm: 0, xs: 2 }, boxShadow: '0 0 3px dimgrey', padding: 3, display: 'flex', justifyContent: 'space-between' }}>
                                 <Box>
@@ -383,7 +421,40 @@ export default function ManageStd() {
                                 </Box>
                             </Grid>
                         ))}
-                    </Grid>
+                    </Grid> */}
+                     <Grid container sx={{ gap: { md: '0.1', sm: 2 }, justifyContent: { md: 'start', xs: 'center' } }}>
+                                {search
+                                    ? searchData.map((val) => (
+                                        <Grid item md={3} sm={5} xs={9} sx={{ marginBottom: { sm: 0, xs: 2 }, boxShadow: '0 0 3px dimgrey', padding: 3, display: 'flex', justifyContent: 'space-between' }}>
+                                <Box>
+                                    <b>Name : </b><br />
+                                    <b>Student Id : </b><br />
+                                    <b>Batch : </b><br />
+                                </Box>
+                                <Box>
+                                    {val.data.FirstName} {val.data.LastName}<br />
+                                    {val.data.StdId}<br />
+                                    {val.data.Year}<br /><br />
+                                    <Button size="small" onClick={() => getdetails(val)}>view details</Button>
+                                </Box>
+                            </Grid>
+                                    ))
+                                    : book.map((val) => (
+                                        <Grid item md={3} sm={5} xs={9} sx={{ marginBottom: { sm: 0, xs: 2 }, boxShadow: '0 0 3px dimgrey', padding: 3, display: 'flex', justifyContent: 'space-between' }}>
+                                        <Box>
+                                            <b>Name : </b><br />
+                                            <b>Student Id : </b><br />
+                                            <b>Batch : </b><br />
+                                        </Box>
+                                        <Box>
+                                            {val.data.FirstName} {val.data.LastName}<br />
+                                            {val.data.StdId}<br />
+                                            {val.data.Year}<br /><br />
+                                            <Button size="small" onClick={() => getdetails(val)}>view details</Button>
+                                        </Box>
+                                    </Grid>
+                                    ))}
+                            </Grid>
                 </Grid>
             </Grid>
 

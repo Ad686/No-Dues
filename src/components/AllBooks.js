@@ -1,5 +1,5 @@
 import { Delete, Edit } from "@mui/icons-material";
-import { Button, Card, CardContent, CardMedia, Dialog, DialogContent, DialogTitle, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Button, Card, CardContent, CardMedia, Dialog, DialogContent, DialogTitle, Grid, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -9,18 +9,60 @@ import Navbar1 from "./navbar1";
 export default function AllBooks() {
 
     const [book, setbook] = useState([])
+    const classes = [{ cls1: 'Mechanical' }, { cls1: 'Civil' }, { cls1: 'Information technology' }, { cls1: 'Computer Science ' }, { cls1: 'Electrical' },{ cls1: 'Electronics and Communications'},{ cls1: 'Production' },]
+
+    const [search, setSearch] = useState(""); //first step
+    const [searchData, setSearchData] = useState([]); //second step
     function getdata() {
         var ar = []
-        db.collection("Added_Books").orderBy("Date",'desc').onSnapshot((succ) => {
-            succ.forEach((abc) => {
-                ar.push(abc)
-            })
-            setbook(ar)
-        })
+        db.collection("Added_Books")
+            .orderBy("Date", "desc")
+            .onSnapshot((succ) => {
+                //from here
+                setbook(
+                    succ.docs.map((item) => ({
+                        data: item.data(),
+                        id: item.id,
+                    }))
+                );
+            }); //to here
     }
     useEffect(() => {
         getdata()
     }, [])
+
+    const getSearchBook = () => {
+        if (search) {
+            const newData = book.filter((item) => {
+                const textData = search.toLowerCase();
+                if (item.data.Title.toLowerCase().startsWith(textData)) {
+                    return item;
+                } else if (item.data.Publisher.toLowerCase().startsWith(textData)) {
+                    return item
+                }
+                else if (item.data.Author.toLowerCase().startsWith(textData)) {
+                    return item
+                }
+                else if (item.data.Category.toLowerCase().startsWith(textData)) {
+                    return item
+                }
+                
+                else {
+                    return null
+                }
+            });
+            setSearchData(newData);
+            console.log(newData);
+        } else {
+            setSearchData([]);
+            console.log("no data");
+        }
+    };
+
+    //sixth step
+    useEffect(() => {
+        getSearchBook();
+    }, [search]);
 
 
     function del(x) {
@@ -46,6 +88,7 @@ export default function AllBooks() {
     const [pub, setpub] = useState('')
     const [auth, setauth] = useState('')
     // const [img, setimg] = useState('')
+    const [cls, setcls]=useState('')
 
     const [opn, setopn] = useState(false)
 
@@ -120,6 +163,7 @@ export default function AllBooks() {
                         Publisher: publisher,
                         Copies: copies,
                         Year: year,
+                        Category:cls,
                         Image: url
                     }).then((succ) => {
                         alert("data updated")
@@ -129,6 +173,7 @@ export default function AllBooks() {
                         setcop("")
                         setpub("")
                         setauth("")
+                        setcls("")
                         getdata()
                         setopn(!opn)
                         // setimg("")
@@ -147,6 +192,9 @@ export default function AllBooks() {
                 setcop(succ.data().Copies)
                 setpub(succ.data().Publisher)
                 setauth(succ.data().Author)
+                setcls(succ.data().Category)
+
+
                 // setimg(succ.data().Image)
             })
         }
@@ -154,7 +202,7 @@ export default function AllBooks() {
     useEffect(() => {
         getonedata()
     }, [id])
-
+    
 
     return (
         <>
@@ -168,7 +216,7 @@ export default function AllBooks() {
                         variant="outlined"
                         size="large"
                         className="srch"
-                        // onChange={(e) => setSearch(e.target.value)}
+                        onChange={(e) => setSearch(e.target.value)}
                     /> 
                     <Paper className="container1" elevation={0} sx={{ height: 'calc(100vh - 160px)', borderTop: '5px solid darkblue', overflowX: 'scroll' }}>
                         <Table>
@@ -192,13 +240,16 @@ export default function AllBooks() {
                                     <TableCell align={'center'}>
                                         <b>Copies</b>
                                     </TableCell>
+                                    <TableCell align={'center'}>
+                                        <b>Category</b>
+                                    </TableCell>
                                     <TableCell colSpan={2} align={'center'}>
                                         Action
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
 
-                            <TableBody>
+                            {/* <TableBody>
                                 {book.map((val) => (
                                     <TableRow>
                                         <TableCell align={'center'} >
@@ -227,6 +278,71 @@ export default function AllBooks() {
                                         </TableCell>
                                     </TableRow>
                                 ))}
+                            </TableBody> */}
+                             <TableBody>
+                                {search
+                                    ? searchData.map((val) => (
+                                        <TableRow>
+                                            <TableCell align={"center"}>
+                                                <img src={val.data.Image} height={50} />
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                <p>{val.data.Title}</p>
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                <p>{val.data.Author}</p>
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                <p>{val.data.Publisher}</p>
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                <p>{val.data.Year}</p>
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                <p>{val.data.Copies}</p>
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                <p>{val.data.Category}</p>
+                                            </TableCell>
+                                            <TableCell align={'center'}>
+                                            <Button onClick={() => del(val)}><Delete /></Button>
+                                        </TableCell>
+                                        <TableCell align={'center'}>
+                                            <Button onClick={() => edit(val)}><Edit /></Button>
+                                        </TableCell>
+                                        </TableRow>
+                                    ))
+                                    : book.map((val) => (
+                                        <TableRow>
+                                            <TableCell align={"center"}>
+                                                <img src={val.data.Image} height={50} />
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                <p>{val.data.Title}</p>
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                <p>{val.data.Author}</p>
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                <p>{val.data.Publisher}</p>
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                <p>{val.data.Year}</p>
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                <p>{val.data.Copies}</p>
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                <p>{val.data.Category}</p>
+                                            </TableCell>
+                                            <TableCell align={'center'}>
+                                            <Button onClick={() => del(val)}><Delete /></Button>
+                                        </TableCell>
+                                        <TableCell align={'center'}>
+                                            <Button onClick={() => edit(val)}><Edit /></Button>
+                                        </TableCell>
+                                        </TableRow>
+                                    ))}
                             </TableBody>
                         </Table>
                     </Paper>
@@ -242,6 +358,18 @@ export default function AllBooks() {
                         <TextField className="txtfld" onChange={(e) => setpub(e.target.value)} value={pub} name="publisher" placeholder="Publisher" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" onChange={(e) => setyr(e.target.value)} value={yr} name="year" placeholder="Year" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" onChange={(e) => setcop(e.target.value)} value={cop} name="copies" placeholder="Number Of Copies" InputProps={{ sx: { height: 38 } }} />
+                        <Select
+                                            sx={{ height: 45 }}
+                                            className="txtfld"
+                                            value={cls}
+                                            onChange={(e) => setcls(e.target.value)}
+                                            name="cls"
+                                        >
+                                            {classes.map((val) => (
+                                                <MenuItem value={val.cls1}>{val.cls1}</MenuItem>
+                                            ))}
+                                        </Select>
+
                         <TextField className="txtfld" type={'file'} name="img" InputProps={{ sx: { height: 40 } }} />
                         {prog == 0 ? (
                             <Button variant="contained" type='submit' fullWidth>Editing Book</Button>

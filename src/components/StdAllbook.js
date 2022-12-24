@@ -1,14 +1,22 @@
 import React from "react";
 import {
+    Box,
     Button,
     Card,
     CardContent,
     CardMedia,
+    CircularProgress,
+    Collapse,
     Dialog,
+    DialogActions,
     DialogContent,
     DialogTitle,
+    FormControl,
     Grid,
+    InputLabel,
+    MenuItem,
     Paper,
+    Select,
     Table,
     TableBody,
     TableCell,
@@ -25,6 +33,7 @@ import Navbar2 from "./navbar2";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 
+
 export default function StdAllbook() {
     var navi = useNavigate();
     const [search, setSearch] = useState(""); //first step
@@ -32,6 +41,7 @@ export default function StdAllbook() {
     const [book, setbook] = useState([]); //change its place in third step
     var std1 = localStorage.getItem("StudentID");
     const [issued, setIssued] = useState([]);
+    const [opn4, setopn4] = useState(false)
 
     useEffect(() => {
         if (!std1) {
@@ -74,7 +84,11 @@ export default function StdAllbook() {
                 }
                 else if (item.data.Author.toLowerCase().startsWith(textData)) {
                     return item
-                } else {
+                } 
+                else if (item.data.Category.toLowerCase().startsWith(textData)) {
+                    return item
+                } 
+                else {
                     return null
                 }
             });
@@ -176,6 +190,7 @@ export default function StdAllbook() {
                 });
         }
     }
+    
     return (
         <>
             <Navbar2 />
@@ -198,6 +213,41 @@ export default function StdAllbook() {
                         onChange={(e) => setSearch(e.target.value)}
                     />
 
+                    <Button variant="outlined" color="primary" style={{float:'right'} } onClick={() => setopn4(!opn4)} className="addstd" >Advance Search</Button>&nbsp;&nbsp;&nbsp;
+                    
+                    
+                    {/* advance search */}
+                    <Dialog open={opn4} onClose={() => setopn4(!opn4)}>
+                <DialogTitle align={"center"}>Advance Search</DialogTitle>
+                <DialogContent>
+                    <Box  width={500}>
+                        <Box>
+                        <form encType="multipart/form-data" className="form1 " style={{ marginTop: '11px' }}>
+                                    <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} />
+                                    {/* <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} /> */}
+                                    
+                                </form>
+                        </Box>
+                        
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                <Button variant="contained" type='submit' fullWidth>Search</Button>
+
+                </DialogActions>
+            </Dialog>
+                    {/* <DialogContent>
+                <Box>
+                            <Box in={opn}>
+                                
+                            </Box>
+                        </Box>
+                        </DialogContent> */}
+                    
+                    
                     <Paper
                         className="container1"
                         elevation={0}
@@ -228,7 +278,9 @@ export default function StdAllbook() {
                                     <TableCell align={"center"}>
                                         <b>Copies</b>
                                     </TableCell>
-                                    
+                                    <TableCell align={"center"}>
+                                        <b>Category</b>
+                                    </TableCell>
                                     <TableCell colSpan={2} align={"center"}>
                                         Action
                                     </TableCell>
@@ -258,6 +310,9 @@ export default function StdAllbook() {
                                                 <p>{val.data.Copies}</p>
                                             </TableCell>
                                             <TableCell align={"center"}>
+                                                <p>{val.data.Category}</p>
+                                            </TableCell>
+                                            <TableCell align={"center"}>
                                                 <Button onClick={() => issue(val)}>issue</Button>
                                             </TableCell>
                                         </TableRow>
@@ -281,6 +336,9 @@ export default function StdAllbook() {
                                             </TableCell>
                                             <TableCell align={"center"}>
                                                 <p>{val.data.Copies}</p>
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                <p>{val.data.Category}</p>
                                             </TableCell>
                                             <TableCell align={"center"}>
                                                 <Button onClick={() => issue(val)}>issue</Button>

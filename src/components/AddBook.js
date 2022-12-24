@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Collapse, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Button, CircularProgress, Collapse, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import React, { useRef, useState } from "react";
 import Navbar1 from "./navbar1";
 import { db, storage } from "./firebase";
@@ -11,7 +11,7 @@ export default function AddBook() {
         var navi = useNavigate()
         var lib = localStorage.getItem("LibrarianID")
 
-    const classes = [{ cls1: 'Engineering' }, { cls1: 'Non-Engineering' }, { cls1: 'Medical' }, { cls1: 'Arts' }, { cls1: 'Commerce' },]
+    const classes = [{ cls1: 'Mechanical' }, { cls1: 'Civil' }, { cls1: 'Information technology' }, { cls1: 'Computer Science ' }, { cls1: 'Electrical' },{ cls1: 'Electronics and Communications'},{ cls1: 'Production' },]
         
 
         useEffect(() => {
@@ -26,7 +26,8 @@ export default function AddBook() {
         const [cop, setcop] = useState('')
         const [pub, setpub] = useState('')
         const [auth, setauth] = useState('')
-        // const [img, setimg] = useState('')
+        const[cls, setcls]=useState('')
+        const [img, setimg] = useState('')
 
         const [prog, setprog] = useState(0)
 
@@ -99,6 +100,7 @@ export default function AddBook() {
                                                 Copies: copies,
                                                 Year: year,
                                                 Image: url,
+                                                Category : cls,
                                                 Date: firebase.firestore.FieldValue.serverTimestamp()
                                         }).then((succ) => {
                                                 alert("data added")
@@ -108,7 +110,8 @@ export default function AddBook() {
                                                 setcop("")
                                                 setpub("")
                                                 setauth("")
-                                                // setimg("")
+                                                setimg("")
+                                                setcls("")
                                         })
                                 })
                         })
@@ -125,26 +128,27 @@ export default function AddBook() {
                                         <Grid item lg={5} md={5} sm={8} xs={10} sx={{ mt: { md: 10, xs: 10 } }} >
                                                 <Typography variant="h3">Add Book</Typography>
                                                 <form className="form1" onSubmit={addform}>
-                                                        <TextField className="txtfld" onChange={(e) => settit(e.target.value)} value={tit} name="title" label="Book Title" InputProps={{ sx: { height: 38 } }} required/>
-                                                        <TextField className="txtfld" onChange={(e) => setauth(e.target.value)} value={auth} name="author" label="Author Name" InputProps={{ sx: { height: 38 } }} required/>
-                                                        <TextField className="txtfld" onChange={(e) => setpub(e.target.value)} value={pub} name="publisher" label="Publisher" InputProps={{ sx: { height: 38 } }} required/>
-                                                        <TextField className="txtfld" onChange={(e) => setyr(e.target.value)} value={yr} name="year" label="Year" InputProps={{ sx: { height: 38 } }} required/>
-                                                        <TextField className="txtfld1" onChange={(e) => setcop(e.target.value)} value={cop} name="copies" label="Number Of Copies" InputProps={{ sx: { height: 38 } }} required/>
-                                                     
+                                                        <TextField className="txtfld" onChange={(e) => settit(e.target.value)} value={tit} name="title" placeholder="Book Title" InputProps={{ sx: { height: 38 } }} required/>
+                                                        <TextField className="txtfld" onChange={(e) => setauth(e.target.value)} value={auth} name="author" placeholder="Author Name" InputProps={{ sx: { height: 38 } }} required/>
+                                                        <TextField className="txtfld" onChange={(e) => setpub(e.target.value)} value={pub} name="publisher" placeholder="Publisher" InputProps={{ sx: { height: 38 } }} required/>
+                                                        <TextField className="txtfld" onChange={(e) => setyr(e.target.value)} value={yr} name="year" placeholder="Year" InputProps={{ sx: { height: 38 } }} required/>
+                                                        <TextField className="txtfld" onChange={(e) => setcop(e.target.value)} value={cop} name="copies" placeholder="Number Of Copies" InputProps={{ sx: { height: 38 } }} required/>
+                                                     <FormControl fullWidth className="txtfld" InputProps={{ sx: { height: 38 } }}>
                                                      {/* Book category */}
-                                                        <InputLabel id="demo-simple-select-label" >Category</InputLabel>
+                                                     <InputLabel id="demo-simple-select-label">Category</InputLabel>
                                         {/* )} */}
                                         <Select
                                             sx={{ height: 45 }}
                                             className="txtfld"
-                                            // value={cls}
-                                            // onChange={(e) => setcls(e.target.value)}
+                                            value={cls}
+                                            onChange={(e) => setcls(e.target.value)}
                                             name="cls"
                                         >
                                             {classes.map((val) => (
                                                 <MenuItem value={val.cls1}>{val.cls1}</MenuItem>
                                             ))}
                                         </Select>
+                                        </FormControl>
                                                         {/* <InputLabel id="demo-simple-select-label" >Upload Book Image</InputLabel> <TextField className="txtfld" type='file' name="img" InputProps={{ sx: { height: 40 } }} /> */}
                                                         <Button variant="contained" onClick={() => filePickerRef.current.click()} style={{ marginBottom: 10 }} fullWidth>upload book image</Button>
                   <input ref={filePickerRef} type="file" hidden className="txtfld" name="img" />

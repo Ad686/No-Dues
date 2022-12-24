@@ -1,6 +1,6 @@
 
 import { Check, CheckCircle, Close } from "@mui/icons-material";
-import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -56,7 +56,14 @@ export default function BookIssued() {
             <Grid container>
                 <Grid item lg={10} sx={{ ml: { md: 25 }, mt: { md: 10, xs: 10 } }} >
                     <Typography variant="h5">Issued Books</Typography>
-                    
+                    <TextField
+                        id="text-field"
+                        placeholder="Search"
+                        variant="outlined"
+                        size="large"
+                        className="srch"
+                        // onChange={(e) => setSearch(e.target.value)}
+                    /> 
                     <Paper className="container1" elevation={0} sx={{ display: { md: 'block', xs: 'none' }, height: 'calc(100vh - 150px)', borderTop: '5px solid darkblue', overflowX: 'scroll' }}>
                         <Table>
                             <TableHead>

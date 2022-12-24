@@ -1,6 +1,6 @@
 import { Delete, Edit } from "@mui/icons-material";
 import { Autocomplete, Box, Button, ButtonGroup, CircularProgress, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControl, Grid, Input, InputLabel, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db, storage } from "./firebase";
@@ -11,6 +11,9 @@ export default function ManageStd() {
 
 
     var navi = useNavigate()
+    const [search, setSearch] = useState(""); //first step
+    const [searchData, setSearchData] = useState([]); //second step
+    const [student, setstudent] = useState([]); //change its place in third step
     var lib = localStorage.getItem("LibrarianID")
 
     useEffect(() => {
@@ -29,8 +32,8 @@ export default function ManageStd() {
     const [prog, setprog] = useState(0)
 
 
-    const classes = [{ cls1: 'b.b.a' }, { cls1: 'b.com' }, { cls1: 'b.c.a' }, { cls1: 'b.tech' }, { cls1: 'b.a' }, { cls1: 'M.com' },]
-
+    // const classes = [{ cls1: '' }, { cls1: 'b.com' }, { cls1: 'b.c.a' }, { cls1: 'b.tech' }, { cls1: 'b.a' }, { cls1: 'M.com' },]
+    const classes = [{ cls1: 'Mechanical' }, { cls1: 'Civil' }, { cls1: 'Information technology' }, { cls1: 'Computer Science ' }, { cls1: 'Electrical' },{ cls1: 'Electronics and Communications'},{ cls1: 'Production' },]
     function addstd(e) {
         e.preventDefault();
         var d = new FormData(e.currentTarget);
@@ -299,7 +302,7 @@ export default function ManageStd() {
             })
         }
     }
-
+    const filePickerRef = useRef(null);
     return (
         <>
             <Navbar1 />
@@ -307,8 +310,18 @@ export default function ManageStd() {
                 <Grid item lg={9} md={9} sm={11} xs={11} sx={{ mt: { md: 10, sm: 10, xs: 8 }, ml: { md: 25, sm: 5, xs: 2 }, display: { sm: 'flex', xs: "block" }, flexDirection: 'column' }}>
                     <Grid item lg={7} md={7} sm={7} xs={12}>
                         <Button variant="outlined" onClick={() => setopn(!opn)} className="addstd" size="large">Add Student</Button>&nbsp;&nbsp;&nbsp;
+                        <TextField
+                        id="text-field"
+                        placeholder="Search"
+                        variant="outlined"
+                        // size="large"
+                        InputProps={{ sx: { height: 38} }}
+                        className="srch"
+                        // onChange={(e) => setSearch(e.target.value)}
+                    />
                         {/* <TextField id="text-field" label="🔍Search" variant="outlined"  size="large" className="srch"  InputProps={{ sx: { height: 38} }}/> */}
                         <Box>
+                       
                             <Collapse in={opn}>
                                 <form encType="multipart/form-data" className="form1" onSubmit={addstd} style={{ marginTop: '11px' }}>
                                     {/* <form encType="multipart/form-data" className="form1" onSubmit={id2 ? (editstd) : (addstd)} style={{ marginTop: '11px' }}> */}
@@ -317,7 +330,7 @@ export default function ManageStd() {
                                     {/* <TextField className="txtfld" onChange={(e) => setcls(e.target.value)} value={cls} name="l_name" placeholder="Class Name" InputProps={{ sx: { height: 38 } }} /> */}
                                     <FormControl fullWidth className="txtfld">
                                         {/* {!id2 && ( */}
-                                        <InputLabel id="demo-simple-select-label" >Class</InputLabel>
+                                        <InputLabel id="demo-simple-select-label" >Department</InputLabel>
                                         {/* )} */}
                                         <Select
                                             sx={{ height: 45 }}
@@ -333,9 +346,11 @@ export default function ManageStd() {
 
                                    {/* <FormControl></FormControl> */}
                                     <TextField className="txtfld" name="clg_id" placeholder="College Id" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="year" placeholder="Year" InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="year" placeholder="Batch" InputProps={{ sx: { height: 38 } }} />
                                     <TextField className="txtfld" name="contact" placeholder="Contact" InputProps={{ sx: { height: 38 } }} />
-                                    <input type="file" className="txtxfld2 " name="img" />
+                                    {/* <input type="file" className="txtxfld2 " name="img" /> */}
+                                    <Button variant="contained" onClick={() => filePickerRef.current.click()} style={{ marginBottom: 10 }} fullWidth>upload student image</Button>
+                  <input ref={filePickerRef} type="file" hidden className="txtfld" name="img" />
                                     {prog != 0 ? (
                                         <CircularProgress></CircularProgress>
                                     ) : (
@@ -358,7 +373,7 @@ export default function ManageStd() {
                                 <Box>
                                     <b>Name : </b><br />
                                     <b>Student Id : </b><br />
-                                    <b>Year : </b><br />
+                                    <b>Batch : </b><br />
                                 </Box>
                                 <Box>
                                     {val.data().FirstName} {val.data().LastName}<br />
@@ -378,8 +393,8 @@ export default function ManageStd() {
                     <Box className="d-flex3" width={400}>
                         <Box>
                             <p><b>Name : </b>{fnm} {lnm}</p>
-                            <p><b>Class : </b>{cls}</p>
-                            <p><b>Year : </b>{year}</p>
+                            <p><b>Department : </b>{cls}</p>
+                            <p><b>Batch : </b>{year}</p>
                             <p><b>College Id : </b>{clgId}</p>
                             <p><b>Libraray Id : </b>{s_id} </p>
                             <p><b>Password : </b>{pass}</p>

@@ -30,7 +30,7 @@ export default function Navbar1() {
                         <List>
                             <ListItem>
                                 <ListItemButton onClick={() => page("allbooks")}>
-                                    <LibraryBooks />All Books
+                                    <LibraryBooks />Manage Std
                                 </ListItemButton>
                             </ListItem>
                             <Divider />
@@ -81,7 +81,7 @@ export default function Navbar1() {
                 <Avatar src="https://static.vecteezy.com/system/resources/previews/000/585/835/original/vector-book-reading-logo-and-symbols-template-icons.jpg"></Avatar>
 
                     <Typography variant="h5" sx={{margin:'auto'}}>
-                        Central Library
+                        No Dues
                     </Typography>
 
                     <MenuBar onClick={opnmenu} sx={{ display: { xs: "block", sm: "block", md: "none", lg: "none" } }} />

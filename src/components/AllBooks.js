@@ -235,13 +235,13 @@ export default function AllBooks() {
                                         <b>Publisher</b>
                                     </TableCell>
                                     <TableCell align={'center'}>
-                                        <b>Year</b>
+                                        <b>Batch</b>
                                     </TableCell>
                                     <TableCell align={'center'}>
                                         <b>Copies</b>
                                     </TableCell>
                                     <TableCell align={'center'}>
-                                        <b>Category</b>
+                                        <b>Department</b>
                                     </TableCell>
                                     <TableCell colSpan={2} align={'center'}>
                                         Action
@@ -356,7 +356,7 @@ export default function AllBooks() {
                         <TextField className="txtfld" onChange={(e) => settit(e.target.value)} value={tit} name="title" placeholder="Book Title" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" onChange={(e) => setauth(e.target.value)} value={auth} name="author" placeholder="Author Name" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" onChange={(e) => setpub(e.target.value)} value={pub} name="publisher" placeholder="Publisher" InputProps={{ sx: { height: 38 } }} />
-                        <TextField className="txtfld" onChange={(e) => setyr(e.target.value)} value={yr} name="year" placeholder="Year" InputProps={{ sx: { height: 38 } }} />
+                        <TextField className="txtfld" onChange={(e) => setyr(e.target.value)} value={yr} name="year" placeholder="Batch" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" onChange={(e) => setcop(e.target.value)} value={cop} name="copies" placeholder="Number Of Copies" InputProps={{ sx: { height: 38 } }} />
                         <Select
                                             sx={{ height: 45 }}

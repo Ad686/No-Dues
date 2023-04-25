@@ -1,142 +1,90 @@
-import React, { useState } from "react";
-import { AppBar, Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField, Toolbar, Typography } from '@mui/material'
-import { useNavigate } from "react-router-dom";
-import { db } from "./firebase";
-// import bck from './images/bck.jpg';
-export default function Home() {
-
-    const [opn, setopn] = useState(false)
-    const [opn1, setopn1] = useState(false)
-
-    var navi = useNavigate()
-
-    function login1(e) {
-        e.preventDefault();
-        var d = new FormData(e.currentTarget);
-        var id = d.get("id")
-        var pass = d.get('pass')
-        console.log(id)
-        console.log(pass)
-
-        db.collection("Librarian").where("Id", "==", id).where("Password", "==", pass).get().then((succ) => {
-            if (succ.size == 0) {
-                alert("wrong id or password")
-            } else {
-                succ.forEach((abc) => {
-                    console.log(abc.data())
-                    alert("login successful")
-                    localStorage.setItem("LibrarianID", abc.id)
-                    console.log(abc.id)
-                    navi("/allbooks")
-                })
-            }
-        })
-    }
-
-
-    function login2(e) {
-        e.preventDefault();
-        var d = new FormData(e.currentTarget);
-        var id = d.get("id")
-        var pass = d.get('pass')
-
-        db.collection("Add_Std").where("StdId", "==", id).where("Password", "==", pass).get().then((succ) => {
-            if (succ.size == 0) {
-                alert("wrong id or password")
-            } else {
-                // alert("login successful")
-                succ.forEach((abc) => {
-                    alert("login successful")
-                    console.log(id)
-                    localStorage.setItem("StudentID", id)
-                    console.log(abc.id)
-                    navi("/books")
-                })
-            }
-        })
-
-        // db.collection("Add_Std").where("StdId", "==", id).where("Password", "==", pass).onSnapshot((get) => {
-        //     setUser(get.docs.map((item) => ({
-        //         data: item.data(),
-        //         id: item.id
-        //     })))
-
-        //     console.log(get);
-        // })
-    }
-
-
-    return (
+import react from "react";
+import Navbar from './navbar';
+import Footer from "./footer";
+ function Home(){
+    return(
         <>
-            <Dialog open={opn} onClose={() => setopn(!opn)} >
-                <DialogTitle>Librarian Login</DialogTitle>
-                <DialogContent sx={{ width: 500 }}>
-                    <form onSubmit={login1}>
-                        <TextField autoComplete="off"
-                            InputProps={{ sx: { height: 38 } }} name="id" placeholder="user id" type='text' fullWidth required /><br /><br />
-                        <TextField autoComplete="off" InputProps={{ sx: { height: 38 } }} name="pass" placeholder="password" type='password' fullWidth required /><br /><br />
-                        <Button type='submit' variant="outlined">Login</Button>
-                    </form>
-                </DialogContent>
-                <DialogActions>
-                </DialogActions>
-            </Dialog>
-            <Dialog open={opn1} onClose={() => setopn1(!opn1)} >
-                <DialogTitle>Student Login</DialogTitle>
-                <DialogContent sx={{ width: 500 }}>
-                    <form onSubmit={login2}>
-                        <TextField autoComplete="off" InputProps={{ sx: { height: 38 } }} name="id" placeholder="user id" type='text' fullWidth required /><br /><br />
-                        <TextField autoComplete="off" InputProps={{ sx: { height: 38 } }} name="pass" placeholder="password" type='password' fullWidth required /><br /><br />
-                        <Button type='submit' variant="outlined">Login</Button>
-                    </form>
-                </DialogContent>
-                <DialogActions>
-                </DialogActions>
-            </Dialog>
+        {/* <Navbar/> */}
+        <div>
+            <section className=" homeback overflow-hidden" >
 
 
-            {/* <Typography variant="h3" style={{textAlign:'center',margin:'10px 0'}}>Central Library,Ludhiana</Typography> */}
-            {/* <AppBar className="apbar1" >
-                <Toolbar>
-                <Avatar src="https://static.vecteezy.com/system/resources/previews/000/585/835/original/vector-book-reading-logo-and-symbols-template-icons.jpg"></Avatar>
+                <div className="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+                    <div className="row gx-lg-5 align-items-center mb-5">
+                        <div className="col-lg-7 mb-5 mb-lg-0" style={{ zIndex: "10" }}>
+                            <h1 className="my-5 display-5 fw-bold ls-tight" style={{ color: "hsl(218, 81%, 95%)" }}>
+                                Guru Nanak Dev<br />
+                                <span style={{ color: "black" }}>Engineering College</span>
+                            </h1>
+                            <p className="mb-4 opacity-70" style={{ color: "hsl(218, 81%, 85%)"}}>
+                            No-dues is an easy to use online tool which helps the administration to maintain a record of pending dues and helps the students to review and submit them.
 
-                    <Typography variant="h5" sx={{margin:'auto'}}>
-                        Central Library
-                    </Typography>
-                    </Toolbar>
-                    </AppBar>
-                    <br/><br/><br/> */}
-            <Grid container>
+                            </p>
+                        </div>
 
-                <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="imgg ">
-                    {/* <img src={bck} width={'100%'} /> */}
-                    <br />
-                    <br />
-                    <br /><br />
-                    <br />
-                    <br /><br />
-                    <br />
-                    <br /><br />
-                    <br />
-                    <br /><br />
-                    <br />
-                    <br /> <Grid item xl={6} lg={6} md={6} sm={6} xs={12} className="box1">
-                        <Typography variant="h2" className="hh4">LOGIN HERE</Typography>
-                        <Box className="m-top">
-                            <Button variant="contained" onClick={() => setopn(!opn)}>Login As Librarian</Button>&nbsp;&nbsp;&nbsp;
-                            <Button variant="contained" color="secondary" onClick={() => setopn1(!opn1)}>Login As Student</Button>
-                        </Box>
-                    </Grid>
-                </Grid>
-                {/* <Grid item xl={6} lg={6} md={6} sm={6} xs={12} className="box1">
-                    <Typography variant="h4">Login Here</Typography>
-                    <Box className="m-top">
-                        <Button  variant="outlined" onClick={() => setopn(!opn)}>Login As Librarian</Button>
-                        <Button variant="outlined" onClick={() => setopn1(!opn1)}>Login As Student</Button>
-                    </Box>
-                </Grid> */}
-            </Grid>
+                        <div className="col-lg-5 mb-5 mb-lg-0 position-relative">
+                            <div id="radius-shape-1" className="position-absolute rounded-circle shadow-5-strong"></div>
+                            <div id="radius-shape-2" className="position-absolute shadow-5-strong"></div>
+
+                            <div className="card bg-glass">
+                                <div className="card-body px-4 py-5 px-md-5">
+                                    <form>
+
+
+
+                                        <div className="d-flex flex-row align-items-center mb-4 text-center">
+                                            <i className="fa-solid fa-user"></i>
+                                            <div className="form-outline flex-fill mb-0 ">
+                                                <input type="text"  className="form-control" placeholder='User Name' name="uname" required />
+
+                                            </div>
+                                        </div>
+                                        <div className="d-flex flex-row align-items-center mb-4 text-center">
+                                            <i className="fas fa-lock fa-lg"></i>
+                                            <div className="form-outline flex-fill mb-0 ">
+                                                <input type="password"  className="form-control" placeholder='Password' name="password" required />
+
+                                            </div>
+                                        </div>
+                                        {/* <div className="form-outline mb-4">
+                                            <input type="password" id="form3Example4" className="form-control" placeholder='Password' />
+
+                                        </div> */}
+
+
+
+                                        <button type="submit" className="btn btn-primary col-lg-12">
+                                            Login
+                                        </button>
+
+                                        <div className="text-center">
+                                            {/* <p>or sign up with:</p> */}
+                                            <button type="button" className="btn btn-link btn-floating mx-1">
+                                                <i className="fab fa-facebook-f"></i>
+                                            </button>
+
+                                            <button type="button" className="btn btn-link btn-floating mx-1">
+                                                <i className="fab fa-google"></i>
+                                            </button>
+
+                                            <button type="button" className="btn btn-link btn-floating mx-1">
+                                                <i className="fab fa-twitter"></i>
+                                            </button>
+
+                                            <button type="button" className="btn btn-link btn-floating mx-1">
+                                                <i className="fab fa-github"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <Footer/>
         </>
     )
 }
-
+export default Home;

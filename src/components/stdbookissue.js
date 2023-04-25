@@ -53,7 +53,7 @@ export default function StdBookIssued() {
                                     <TableCell><b>Name</b></TableCell>
                                     <TableCell><b>Class</b></TableCell>
                                     <TableCell><b>StdId</b></TableCell>
-                                    <TableCell><b>Year</b></TableCell>
+                                    <TableCell><b>Batch</b></TableCell>
                                     <TableCell><b>Book</b></TableCell>
                                     <TableCell><b>Author</b></TableCell>
                                     <TableCell colSpan={2} sx={{ textAlign: 'center' }}><b>result</b></TableCell>

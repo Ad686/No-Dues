@@ -21,8 +21,10 @@ export default function IssueReq() {
     //         navi("/")
     //     }
     // }, [])
+    
 
     var std = localStorage.getItem("StudentID");
+    const[cls, setcls]=useState('')
 
     const [data, setdata] = useState([])
     function getissRequest() {
@@ -82,12 +84,10 @@ export default function IssueReq() {
                                     <TableCell><b>Name</b></TableCell>
                                     <TableCell><b>Class</b></TableCell>
                                     <TableCell><b>StdId</b></TableCell>
-                                    <TableCell><b>Year</b></TableCell>
+                                    <TableCell><b>Batch</b></TableCell>
                                     <TableCell><b>Book</b></TableCell>
                                     <TableCell><b>Author</b></TableCell>
-                                    <TableCell >
-                                        <b>Category</b>
-                                    </TableCell>
+                                    
                                     <TableCell colSpan={2} sx={{ textAlign: 'center' }}><b>Action</b></TableCell>
                                 </TableRow>
                             </TableHead>
@@ -101,9 +101,7 @@ export default function IssueReq() {
                                         <TableCell>{val.data().SYear}</TableCell>
                                         <TableCell>{val.data().Title}</TableCell>
                                         <TableCell>{val.data().Author}</TableCell>
-                                        <TableCell align={"center"}>
-                                                <p>{val.data().Category}</p>
-                                            </TableCell>
+                                     
                                         <TableCell>
                                             <CheckCircle color="success" onClick={() => accept(val)} />
                                         </TableCell>

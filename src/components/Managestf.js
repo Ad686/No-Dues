@@ -1,3 +1,5 @@
+
+
 import { Delete, Edit } from "@mui/icons-material";
 import { Autocomplete, Box, Button, ButtonGroup, CircularProgress, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControl, Grid, Input, InputLabel, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import React, { useEffect, useRef } from "react";
@@ -7,7 +9,7 @@ import { db, storage } from "./firebase";
 import Navbar1 from "./navbar1";
 import firebase from "firebase";
 
-export default function ManageStd() {
+export default function Managestf() {
 
 
     var navi = useNavigate()
@@ -34,7 +36,9 @@ export default function ManageStd() {
 
     // const classes = [{ cls1: '' }, { cls1: 'b.com' }, { cls1: 'b.c.a' }, { cls1: 'b.tech' }, { cls1: 'b.a' }, { cls1: 'M.com' },]
     const classes = [{ cls1: 'Mechanical' }, { cls1: 'Civil' }, { cls1: 'Information technology' }, { cls1: 'Computer Science ' }, { cls1: 'Electrical' },{ cls1: 'Electronics and Communications'},{ cls1: 'Production' },]
-    const cd = [{cd1:'NEFT'},{cd1:'RTGS'},{cd1:'IFSC'},]
+    const classess = [{ stf1: 'Not Applicable' }, { stf1: 'Hardware Lab' }, { stf1: 'Web Devlopment Lab' }, { stf1: 'College Library ' }, { stf1: 'DBMS Lab' },{ stf1: 'PL-1'},{ stf1: 'PL-2' },{ stf1: 'Hostel' },{ stf1: 'Training and Placement Cell' },{ stf1: 'OS-1 Lab' },{ stf1: 'HPC Lab' },]
+    const classesss = [{ rl1: 'Not Applicable' }, { rl1: 'Clerk' }, { rl1: 'HOD' }, { rl1: 'Librarian ' }, { rl1: 'Mess Accountent' },{ rl1: 'Record Keeper'},{ rl1: 'Supdt(A/C)' },{ rl1: 'Chief Warden' },{ rl1: 'Mentor' },{ rl1: 'Lab Technician' },]
+    
     function addstd(e) {
         e.preventDefault();
         var d = new FormData(e.currentTarget);
@@ -43,18 +47,14 @@ export default function ManageStd() {
 
         var F_Name = d.get('f_name');
         var L_Name = d.get('l_name');
-        var Father_Name = d.get('father_name')
-        var address = d.get('address')
         var ClgId = d.get("clg_id");
         var Year = d.get("year");
-        var Contact = d.get("contact");
-        var Class = d.get('cls')
-        var Bank_acc = d.get('bank_acc')
-        var Bank_nm = d.get('bank_nm')
-        var Branch_add = d.get('branch_add')
-        var Bank_num = d.get('bank_num')
-        var cd = d.get('cd')
-        var Code_type = d.get('code_type')
+        var contact = d.get("contact");
+        var Class = d.get('cls');
+        var staff = d.get('stf');
+        var role = d.get('rl')
+        
+
         console.log(F_Name)
 
         var alpha = /[A-Z a-z,'&.+]/
@@ -76,29 +76,29 @@ export default function ManageStd() {
 
         var num = /[0-9]/
         var abc2 = []
-        for (var i = 0; i < Year.length; i++) {
-            if (!num.test(Year[i])) {
-                abc2.push(Year[i])
-                // setyear("")
-            }
-        }
+        // for (var i = 0; i < Year.length; i++) {
+        //     if (!num.test(Year[i])) {
+        //         abc2.push(Year[i])
+        //         // setyear("")
+        //     }
+        // }
 
-        for (var i = 0; i < Contact.length; i++) {
-            if (!num.test(Contact[i])) {
-                abc2.push(Contact[i])
-                // setcot("")
-            }
-        }
+        // for (var i = 0; i < Contact.length; i++) {
+        //     if (!num.test(Contact[i])) {
+        //         abc2.push(Contact[i])
+        //         // setcot("")
+        //     }
+        // }
 
-        console.log(ClgId.length)
-        var alphanum = /[ a-z0-9]/
-        var abc3 = [];
-        for (var i = 0; i < ClgId.length; i++) {
-            if (!alphanum.test(ClgId[i])) {
-                abc3.push(ClgId[i])
-                // setclgId("")
-            }
-        }
+        // console.log(ClgId.length)
+        // var alphanum = /[ a-z0-9]/
+        // var abc3 = [];
+        // for (var i = 0; i < ClgId.length; i++) {
+        //     if (!alphanum.test(ClgId[i])) {
+        //         abc3.push(ClgId[i])
+        //         // setclgId("")
+        //     }
+        // }
 
 
         // console.log(abc)
@@ -107,8 +107,8 @@ export default function ManageStd() {
         }
         else if (abc2 != '') {
             alert("enter numbers only")
-        } else if (abc3 != "") {
-            alert("enter correct id")
+        // } else if (abc3 != "") {
+        //     alert("enter correct id")
         } else {
 
             setprog(1)
@@ -134,23 +134,16 @@ export default function ManageStd() {
             st_ref.then((succ) => {
                 st_ref.snapshot.ref.getDownloadURL().then((url) => {
                     console.log(url)
-                    db.collection("Add_Std").add({
+                    db.collection("Add_staff").add({
                         FirstName: F_Name.toLocaleLowerCase(),
                         LastName: L_Name.toLocaleLowerCase(),
-                        FatherName:Father_Name.toLocaleLowerCase(),
-                        Address: address,
                         Year: Number(Year),
-                        ClgId: ClgId,
+                        // ClgId: ClgId,
                         Image: url,
-                        Contact: Number(Contact),
+                        Facility : staff,
+                        SelectRole : role, 
+                        Contact: Number(contact),
                         Class: Class.toLocaleLowerCase(),
-
-                        BankAccountNo : Bank_acc,
-                        BankName : Bank_nm, 
-                        BankAddress : Branch_add,
-                        BankNumber : Bank_num,
-                        Codetype : cd,
-                        Code : Code_type,
                         StdId: StdId,
                         Password: s_pass,
                         Date: firebase.firestore.FieldValue.serverTimestamp()
@@ -170,7 +163,7 @@ export default function ManageStd() {
     const [std, setstd] = useState([])
     function getstd() {
         var ar = []
-        db.collection('Add_Std').orderBy('Date', 'desc').get().then((succ) => {
+        db.collection('Add_staff').orderBy('Date', 'desc').get().then((succ) => {
             //from here
             setbook(
                 succ.docs.map((item) => ({
@@ -197,7 +190,6 @@ export default function ManageStd() {
                 else if (item.data.StdId.toLowerCase().startsWith(textData)) {
                     return item
                 } 
-                
                 // else if (item.data.Class.toLowerCase().startsWith(textData)) {
                 //     return item
                 // }
@@ -222,11 +214,12 @@ export default function ManageStd() {
 
     const [fnm, setfnm] = useState('')
     const [lnm, setlnm] = useState('')
-    const [Fathername,setfathername] = useState('')
     const [cot, setcot] = useState()
     const [year, setyear] = useState()
     const [clgId, setclgId] = useState()
     const [cls, setcls] = useState('')
+    const [stf, setstf] = useState('')
+    const [rl, setrl] = useState('')
     const [img, setimg] = useState('')
     const [s_id, sets_id] = useState('')
     const [pass, setpass] = useState('')
@@ -236,17 +229,18 @@ export default function ManageStd() {
     function getdetails(x) {
         console.log(x.id)
         setid(x.id)
-        db.collection('Add_Std').doc(x.id).get().then((succ) => {
+        db.collection('Add_staff').doc(x.id).get().then((succ) => {
             setfnm(succ.data().FirstName)
             setlnm(succ.data().LastName)
             setyear(succ.data().Year)
             setcls(succ.data().Class)
+            setstf(succ.data().staff)
+            setrl(succ.data().role)
             setpass(succ.data().Password)
             sets_id(succ.data().StdId)
             setcot(succ.data().Contact)
             setclgId(succ.data().ClgId)
             setimg(succ.data().Image)
-            setfathername(succ.data().FatherName)
         })
         setopn2(!opn2)
     }
@@ -255,7 +249,7 @@ export default function ManageStd() {
     function del(x, y) {
         // console.log(x)
         if (window.confirm("ready to delete student?")) {
-            db.collection("Add_Std").doc(x).delete();
+            db.collection("Add_staff").doc(x).delete();
             storage.refFromURL(y).delete().then((succ) => {
                 alert("deleted")
                 getstd();
@@ -282,7 +276,9 @@ export default function ManageStd() {
         var ClgId = clgId;
         var Year = year;
         var Contact = cot;
-        var Class = cls
+        var Class = cls;
+        var staff = stf;
+        var role = rl
 
         var alpha = /[A-Z a-z,'&.+]/
         var abc = []
@@ -317,15 +313,15 @@ export default function ManageStd() {
             }
         }
 
-        console.log(ClgId.length)
-        var alphanum = /[ a-z0-9]/
-        var abc3 = [];
-        for (var i = 0; i < ClgId.length; i++) {
-            if (!alphanum.test(ClgId[i])) {
-                abc3.push(ClgId[i])
-                // setclgId("")
-            }
-        }
+        // console.log(ClgId.length)
+        // var alphanum = /[ a-z0-9]/
+        // var abc3 = [];
+        // for (var i = 0; i < ClgId.length; i++) {
+        //     if (!alphanum.test(ClgId[i])) {
+        //         abc3.push(ClgId[i])
+        //         // setclgId("")
+        //     }
+        // }
 
 
         // console.log(abc)
@@ -334,13 +330,13 @@ export default function ManageStd() {
         }
         else if (abc2 != '') {
             alert("enter numbers only")
-        } else if (abc3 != "") {
-            alert("enter correct id")
+        // } else if (abc3 != "") {
+        //     alert("enter correct id")
         } else {
             var st_ref = storage.ref("/students/" + img.name).put(img);
             st_ref.then((succ) => {
                 st_ref.snapshot.ref.getDownloadURL().then((url) => {
-                    db.collection("Add_Std").doc(id).update({
+                    db.collection("Add_staff").doc(id).update({
                         FirstName: F_Name.toLocaleLowerCase(),
                         LastName: L_Name.toLocaleLowerCase(),
                         Year: Number(Year),
@@ -348,7 +344,6 @@ export default function ManageStd() {
                         Image: url,
                         Contact: Number(Contact),
                         Class: Class.toLocaleLowerCase()
-                    
                     }).then((succ) => {
                         setprog(0)
                         e.target.reset()
@@ -368,7 +363,8 @@ export default function ManageStd() {
             <Grid container className="" >
                 <Grid item lg={9} md={9} sm={11} xs={11} sx={{ mt: { md: 10, sm: 10, xs: 8 }, ml: { md: 25, sm: 5, xs: 2 }, display: { sm: 'flex', xs: "block" }, flexDirection: 'column' }}>
                     <Grid item lg={7} md={7} sm={7} xs={12}>
-                        <Button variant="outlined" onClick={() => setopn(!opn)} className="addstd" size="large">Add Student</Button>&nbsp;&nbsp;&nbsp;
+                        <Button variant="outlined" onClick={() => setopn(!opn)} className="addstd" size="large">Add Staff</Button>&nbsp;&nbsp;&nbsp;
+                        
                         <TextField
                         id="text-field"
                         placeholder="Search"
@@ -378,19 +374,18 @@ export default function ManageStd() {
                         className="srch"
                         onChange={(e) => setSearch(e.target.value)}
                     />
-                        {/* <TextField id="text-field" label="🔍Search" variant="outlined"  size="large" className="srch"  InputProps={{ sx: { height: 38} }}/> */}
+                    
                         <Box>
-                       
+                        
                             <Collapse in={opn}>
-                            <h3>Personal Info</h3>
+                            <h2>Staff Info</h2>
                                 <form encType="multipart/form-data" className="form1" onSubmit={addstd} style={{ marginTop: '11px' }}>
+                                
                                     {/* <form encType="multipart/form-data" className="form1" onSubmit={id2 ? (editstd) : (addstd)} style={{ marginTop: '11px' }}> */}
                                     <TextField className="txtfld" name="f_name" placeholder="First Name" InputProps={{ sx: { height: 38 } }} />
                                     <TextField className="txtfld" name="l_name" placeholder="Last Name" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="father_name" placeholder="Father Name" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="address" placeholder="Address" InputProps={{ sx: { height: 38 } }} />
-
-
+                                    <TextField className="txtfld" name="contact" placeholder="Contact" InputProps={{ sx: { height: 38 } }} />
+                                   
                                     {/* <TextField className="txtfld" onChange={(e) => setcls(e.target.value)} value={cls} name="l_name" placeholder="Class Name" InputProps={{ sx: { height: 38 } }} /> */}
                                     <FormControl fullWidth className="txtfld">
                                         {/* {!id2 && ( */}
@@ -407,40 +402,48 @@ export default function ManageStd() {
                                             ))}
                                         </Select>
                                     </FormControl>
-
-                                   {/* <FormControl></FormControl> */}
-                                    <TextField className="txtfld" name="clg_id" placeholder="College Id" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="year" placeholder="Batch" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="contact" placeholder="Contact" InputProps={{ sx: { height: 38 } }} />
-                                    {/* <input type="file" className="txtxfld2 " name="img" /> */}
-                                    <h3>Bank Details</h3>
-                                    <TextField className="txtfld" name="bank_acc" placeholder="Bank Account Number" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="bank_nm" placeholder="Bank Name" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="branch_add" placeholder=" Branch Address" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="bank_num" placeholder=" Bank Phone Number" InputProps={{ sx: { height: 38 } }} />
                                     <FormControl fullWidth className="txtfld">
                                         {/* {!id2 && ( */}
-                                        <InputLabel id="demo-simple-select-label" >Code Type</InputLabel>
+                                        <InputLabel id="demo-simple-select-label" >Facility</InputLabel>
                                         {/* )} */}
                                         <Select
                                             sx={{ height: 45 }}
                                             // value={cls}
                                             // onChange={(e) => setcls(e.target.value)}
-                                            name="cd"
+                                            name="stf"
                                         >
-                                            {cd.map((val) => (
-                                                <MenuItem value={val.cd1}>{val.cd1}</MenuItem>
+                                            {classess.map((val) => (
+                                                <MenuItem value={val.stf1}>{val.stf1}</MenuItem>
                                             ))}
                                         </Select>
                                     </FormControl>
-                                    <TextField className="txtfld" name="code_type" placeholder=" NEFT/RTGS/IFSC Code" InputProps={{ sx: { height: 38 } }} />
+                                    <FormControl fullWidth className="txtfld">
+                                        {/* {!id2 && ( */}
+                                        <InputLabel id="demo-simple-select-label" >Select Role</InputLabel>
+                                        {/* )} */}
+                                        <Select
+                                            sx={{ height: 45 }}
+                                            // value={cls}
+                                            // onChange={(e) => setcls(e.target.value)}
+                                            name="rl"
+                                        >
+                                            {classesss.map((val) => (
+                                                <MenuItem value={val.rl1}>{val.rl1}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
 
-                                    <Button variant="contained" onClick={() => filePickerRef.current.click()} style={{ marginBottom: 10 }} fullWidth>upload student image</Button>
-                  <input ref={filePickerRef} type="file" hidden className="txtfld" name="img" />
+                                   {/* <FormControl></FormControl> */}
+                                    {/* <TextField className="txtfld" name="clg_id" placeholder="College Id" InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="year" placeholder="Batch" InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="contact" placeholder="Contact" InputProps={{ sx: { height: 38 } }} /> */}
+                                    {/* <input type="file" className="txtxfld2 " name="img" /> */}
+                                    <Button variant="contained" onClick={() => filePickerRef.current.click()} style={{ marginBottom: 10 }} fullWidth>upload staff image</Button>
+                                        <input ref={filePickerRef} type="file" hidden className="txtfld" name="img" />
                                     {prog != 0 ? (
                                         <CircularProgress></CircularProgress>
                                     ) : (
-                                        <Button variant="contained" type='submit' fullWidth>Add Student</Button>
+                                        <Button variant="contained" type='submit' fullWidth>Add Staff</Button>
                                     )}
                                 </form>
                             </Collapse>
@@ -451,7 +454,7 @@ export default function ManageStd() {
 
             <Grid container>
                 <Grid item lg={10} md={10} sm={12} xs={12} sx={{ mt: { md: 3, xs: 2 }, ml: { md: 25, xs: 0 } }} >
-                    <Typography variant="h3">Students</Typography>
+                    <Typography variant="h3">Staff</Typography>
 
                     {/* <Grid container sx={{ gap: { md: '0.1', sm: 2 }, justifyContent: { md: 'start', xs: 'center' } }}>
                         {std.map((val) => (
@@ -518,8 +521,6 @@ export default function ManageStd() {
                             <p><b>Libraray Id : </b>{s_id} </p>
                             <p><b>Password : </b>{pass}</p>
                             <p><b>Contact : </b>{cot}</p>
-                            {/* <p><b>Father Name : </b>{fatherName}</p> */}
-
                         </Box>
                         <Box>
                             <img src={img} height={150} />
@@ -540,6 +541,7 @@ export default function ManageStd() {
                     <form encType="multipart/form-data" className="form1" onSubmit={updatestd} style={{ marginTop: '11px' }}>
                         <TextField className="txtfld" onChange={(e) => setfnm(e.target.value)} value={fnm} name="f_name" placeholder="First Name" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" onChange={(e) => setlnm(e.target.value)} value={lnm} name="l_name" placeholder="Last Name" InputProps={{ sx: { height: 38 } }} />
+                        
                         <FormControl fullWidth className="txtfld">
                             <Select
                                 sx={{ height: 45 }}

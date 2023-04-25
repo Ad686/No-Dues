@@ -68,7 +68,7 @@
 .sidebar {
     position: fixed !important;
     top: 60px;
-    left: 0;
+    left: 10;
     border-right: 2px solid darkblue;
     height: 100vh;
 }
@@ -125,7 +125,7 @@
 }
 
 .apbar{
-    background-color: rgba(0,0,139,0.8) !important;
+    background-color: rgb(0, 0, 139) !important;
 }
 .addstd{
     font-weight: bolder !important;
@@ -151,3 +151,18 @@
     /* font-weight: bolder; */
 }         
 }
+.homeback{
+    background-image: url(images/home.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 60vh;
+    
+  }
+  .block{
+    height: 20vh;
+    background-color: black;
+  }
+  .bg-glass {
+    background-color: hsla(0, 0%, 100%, 0.9) !important;
+    backdrop-filter: saturate(200%) blur(25px);
+  }

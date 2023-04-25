@@ -65,7 +65,7 @@ export default function Navbar2() {
                         Central Library
                     </Typography>
 
-                    <MenuBar onClick={opnmenu} sx={{ display: { xs: "block", sm: "block", md: "none", lg: "none" } }} />
+                    {/* <MenuBar onClick={opnmenu} sx={{ display: { xs: "block", sm: "block", md: "none", lg: "none" } }} /> */}
                     <Drawer open={opn} anchor={"right"} onClose={opnmenu} >
                         <List>
                             <ListItem>

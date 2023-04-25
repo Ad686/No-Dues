@@ -42,6 +42,8 @@ export default function StdAllbook() {
     var std1 = localStorage.getItem("StudentID");
     const [issued, setIssued] = useState([]);
     const [opn4, setopn4] = useState(false)
+    const classes = [{ cls1: 'Mechanical' }, { cls1: 'Civil' }, { cls1: 'Information technology' }, { cls1: 'Computer Science ' }, { cls1: 'Electrical' }, { cls1: 'Electronics and Communications' }, { cls1: 'Production' },]
+
 
     useEffect(() => {
         if (!std1) {
@@ -84,10 +86,10 @@ export default function StdAllbook() {
                 }
                 else if (item.data.Author.toLowerCase().startsWith(textData)) {
                     return item
-                } 
+                }
                 else if (item.data.Category.toLowerCase().startsWith(textData)) {
                     return item
-                } 
+                }
                 else {
                     return null
                 }
@@ -111,6 +113,7 @@ export default function StdAllbook() {
     const [clgId, setclgId] = useState();
     const [cls, setcls] = useState("");
     const [s_id, sets_id] = useState("");
+
 
     //getting student
     function getstd() {
@@ -151,7 +154,9 @@ export default function StdAllbook() {
     const [req, setreq] = useState(false);
 
     function issue(x) {
-        if (issued.length >= 4) {
+        console.log(x)
+        if (
+            issued.length >= 4) {
             alert("you have already requested 4 books");
         } else {
             var sDetails = {
@@ -160,6 +165,8 @@ export default function StdAllbook() {
                 ClgId: fnm[0].data.ClgId,
                 Class: fnm[0].data.Class,
                 StdId: fnm[0].data.StdId,
+
+
             };
             var allDetails = Object.assign(sDetails, x);
             console.log(allDetails, x);
@@ -176,10 +183,12 @@ export default function StdAllbook() {
                                 ClgId: sDetails.ClgId,
                                 Class: sDetails.Class,
                                 StdId: sDetails.StdId,
+
                                 Author: x.data.Author,
                                 Image: x.data.Image,
                                 Title: x.data.Title,
                                 BYear: x.data.Year,
+
                             })
                             .then((succc) => {
                                 alert("request sent");
@@ -191,6 +200,7 @@ export default function StdAllbook() {
         }
     }
     
+
     return (
         <>
             <Navbar2 />
@@ -213,32 +223,32 @@ export default function StdAllbook() {
                         onChange={(e) => setSearch(e.target.value)}
                     />
 
-                    <Button variant="outlined" color="primary" style={{float:'right'} } onClick={() => setopn4(!opn4)} className="addstd" >Advance Search</Button>&nbsp;&nbsp;&nbsp;
-                    
-                    
+                    {/* <Button variant="outlined" color="primary" style={{ float: 'right' }} onClick={() => setopn4(!opn4)} className="addstd" >Advance Search</Button>&nbsp;&nbsp;&nbsp; */}
+
+
                     {/* advance search */}
                     <Dialog open={opn4} onClose={() => setopn4(!opn4)}>
-                <DialogTitle align={"center"}>Advance Search</DialogTitle>
-                <DialogContent>
-                    <Box  width={500}>
-                        <Box>
-                        <form encType="multipart/form-data" className="form1 " style={{ marginTop: '11px' }}>
-                                    <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} />
-                                    {/* <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} /> */}
-                                    
-                                </form>
-                        </Box>
-                        
-                    </Box>
-                </DialogContent>
-                <DialogActions>
-                <Button variant="contained" type='submit' fullWidth>Search</Button>
+                        <DialogTitle align={"center"}>Advance Search</DialogTitle>
+                        <DialogContent>
+                            <Box width={500}>
+                                <Box>
+                                    <form encType="multipart/form-data" className="form1 " style={{ marginTop: '11px' }}>
+                                        <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} />
+                                        <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} />
+                                        <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} />
+                                        <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} />
+                                        {/* <TextField className="txtfld" placeholder="#" InputProps={{ sx: { height: 38 } }} /> */}
 
-                </DialogActions>
-            </Dialog>
+                                    </form>
+                                </Box>
+
+                            </Box>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button variant="contained" type='submit' fullWidth>Search</Button>
+
+                        </DialogActions>
+                    </Dialog>
                     {/* <DialogContent>
                 <Box>
                             <Box in={opn}>
@@ -246,8 +256,8 @@ export default function StdAllbook() {
                             </Box>
                         </Box>
                         </DialogContent> */}
-                    
-                    
+
+
                     <Paper
                         className="container1"
                         elevation={0}
@@ -260,6 +270,7 @@ export default function StdAllbook() {
                         <Table>
                             <TableHead>
                                 <TableRow>
+                                
                                     <TableCell align={"center"}>
                                         <b>Image</b>
                                     </TableCell>
@@ -273,13 +284,13 @@ export default function StdAllbook() {
                                         <b>Publisher</b>
                                     </TableCell>
                                     <TableCell align={"center"}>
-                                        <b>Year</b>
+                                        <b>Batch</b>
                                     </TableCell>
                                     <TableCell align={"center"}>
                                         <b>Copies</b>
                                     </TableCell>
                                     <TableCell align={"center"}>
-                                        <b>Category</b>
+                                        <b>Department</b>
                                     </TableCell>
                                     <TableCell colSpan={2} align={"center"}>
                                         Action
@@ -291,6 +302,7 @@ export default function StdAllbook() {
                                 {search
                                     ? searchData.map((val) => (
                                         <TableRow>
+                                           
                                             <TableCell align={"center"}>
                                                 <img src={val.data.Image} height={50} />
                                             </TableCell>
@@ -319,6 +331,7 @@ export default function StdAllbook() {
                                     ))
                                     : book.map((val) => (
                                         <TableRow>
+                                             
                                             <TableCell align={"center"}>
                                                 <img src={val.data.Image} height={50} />
                                             </TableCell>

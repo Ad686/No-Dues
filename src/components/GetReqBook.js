@@ -1,5 +1,5 @@
 // GetReqBook
-import { Grid } from "@mui/material"
+import { Grid, Paper, TextField, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import React from "react"
 import { useState } from "react"
@@ -28,6 +28,16 @@ export default function GetReqBook() {
             <Navbar1 />
             <Grid container className="">
                 <Grid item md={10} xs={12} sx={{ ml: { md: 25, xs: 7 }, mt: { md: 10, xs: 8 } }}  >
+                <Typography variant="h3">Requested Book</Typography>
+                    {/* <TextField
+                        id="text-field"
+                        placeholder="Search"
+                        variant="outlined"
+                        size="large"
+                        className="srch"
+                        // onChange={(e) => setSearch(e.target.value)}
+                    />  */}
+                     <Paper className="container1" elevation={0} sx={{  borderTop: '5px solid darkblue'}}></Paper>
                     <Grid container>
                         {data.map((val) => (
                             <Grid item md={3} sm={6} xs={10} sx={{ mt: { md: 3, xs: 10 } }} >
@@ -36,6 +46,8 @@ export default function GetReqBook() {
                                     <p><b>Name : </b>{val.data().Title}</p>
                                     <p><b>Author : </b>{val.data().Author}</p>
                                     <p><b>Publisher : </b>{val.data().Publisher}</p>
+                                    <p><b>Category : </b>{val.data().Category}</p>
+
                                 </Box>
                             </Grid>
                         ))}
@@ -45,3 +57,6 @@ export default function GetReqBook() {
         </>
     )
 }
+
+
+

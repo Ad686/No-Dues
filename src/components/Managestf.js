@@ -299,12 +299,12 @@ export default function Managestf() {
 
         var num = /[0-9]/
         var abc2 = []
-        for (var i = 0; i < Year.length; i++) {
-            if (!num.test(Year[i])) {
-                abc2.push(Year[i])
-                // setyear("")
-            }
-        }
+        // for (var i = 0; i < Year.length; i++) {
+        //     if (!num.test(Year[i])) {
+        //         abc2.push(Year[i])
+        //         // setyear("")
+        //     }
+        // }
 
         for (var i = 0; i < Contact.length; i++) {
             if (!num.test(Contact[i])) {
@@ -339,11 +339,10 @@ export default function Managestf() {
                     db.collection("Add_staff").doc(id).update({
                         FirstName: F_Name.toLocaleLowerCase(),
                         LastName: L_Name.toLocaleLowerCase(),
-                        Year: Number(Year),
-                        ClgId: ClgId,
+                       
                         Image: url,
-                         Facility : staff,
-                        SelectRole : role, 
+                         Facility : stf,
+                        SelectRole : rl, 
                         Contact: Number(Contact),
                         Class: Class.toLocaleLowerCase()
                     }).then((succ) => {
@@ -489,8 +488,8 @@ export default function Managestf() {
                                 <Box>
                                     {val.data.FirstName} {val.data.LastName}<br />
                                     {val.data.Class}<br />
-                                    {val.data.Stf}<br />
-                                    {val.data.rl}<br /><br />
+                                    {val.data.Facility}<br />
+                                    {val.data.SelectRole}<br /><br />
                                     <Button size="small" onClick={() => getdetails(val)}>view details</Button>
                                 </Box>
                             </Grid>
@@ -507,8 +506,8 @@ export default function Managestf() {
                                         <Box>
                                             {val.data.FirstName} {val.data.LastName}<br />
                                             {val.data.Class}<br />
-                                            {val.data.staff}<br />
-                                            {val.data.role}<br /><br />
+                                            {val.data.Facility}<br />
+                                            {val.data.SelectRole}<br /><br />
                                             <Button size="small" onClick={() => getdetails(val)}>view details</Button>
                                         </Box>
                                     </Grid>
@@ -550,10 +549,12 @@ export default function Managestf() {
                 <DialogTitle></DialogTitle>
                 <DialogContent>
                     <form encType="multipart/form-data" className="form1" onSubmit={updatestd} style={{ marginTop: '11px' }}>
-                        <TextField className="txtfld" onChange={(e) => setfnm(e.target.value)} value={fnm} name="f_name" placeholder="First Name" InputProps={{ sx: { height: 38 } }} />
-                        <TextField className="txtfld" onChange={(e) => setlnm(e.target.value)} value={lnm} name="l_name" placeholder="Last Name" InputProps={{ sx: { height: 38 } }} />
+                        <TextField className="txtfld" onChange={(e) => setfnm(e.target.value)} value={fnm} name="f_name" label="First Name" InputProps={{ sx: { height: 38 } }} />
+                        <TextField className="txtfld" onChange={(e) => setlnm(e.target.value)} value={lnm} name="l_name" label="Last Name" InputProps={{ sx: { height: 38 } }} />
+                        <TextField className="txtfld" onChange={(e) => setcot(e.target.value)} value={cot} name="contact" label="Contact" InputProps={{ sx: { height: 38 } }} />
                         
                         <FormControl fullWidth className="txtfld">
+                        <InputLabel id="demo-simple-select-label" >Department</InputLabel>
                             <Select
                                 sx={{ height: 45 }}
                                 onChange={(e) => setcls(e.target.value)} value={cls}
@@ -566,6 +567,7 @@ export default function Managestf() {
                             </Select>
                         </FormControl>
                         <FormControl fullWidth className="txtfld">
+                        <InputLabel id="demo-simple-select-label" >Facility</InputLabel>
                             <Select
                                 sx={{ height: 45 }}
                                 onChange={(e) => setcls(e.target.value)} value={stf}
@@ -578,6 +580,7 @@ export default function Managestf() {
                             </Select>
                         </FormControl>
                         <FormControl fullWidth className="txtfld">
+                        <InputLabel id="demo-simple-select-label" >Select role</InputLabel>
                             <Select
                                 sx={{ height: 45 }}
                                 onChange={(e) => setcls(e.target.value)} value={rl}
@@ -592,9 +595,8 @@ export default function Managestf() {
 
                         {/* <TextField className="txtfld" onChange={(e) => setclgId(e.target.value)} value={clgId} name="clg_id" placeholder="College Id" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" onChange={(e) => setstf(e.target.value)} value={stf} name="stf" placeholder="facility" InputProps={{ sx: { height: 38 } }} /> */}
-                        <TextField className="txtfld" onChange={(e) => setcot(e.target.value)} value={cot} name="contact" placeholder="Contact" InputProps={{ sx: { height: 38 } }} />
-                        <TextField className="txtfld" value={s_id} InputProps={{ sx: { height: 38 } }} />
-                        <TextField className="txtfld" value={pass} InputProps={{ sx: { height: 38 } }} />
+                        <TextField className="txtfld" value={s_id} label="Staff Id" InputProps={{ sx: { height: 38 } }} />
+                        <TextField className="txtfld" value={pass} label="Password" InputProps={{ sx: { height: 38 } }} />
                         <input type="file" className="txtxfld2 " name="img" required />
 
                         <Button variant="contained" type='submit' fullWidth>Edit Student</Button>

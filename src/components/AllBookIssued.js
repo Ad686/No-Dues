@@ -15,12 +15,12 @@ export default function AllBookIssued() {
     const [book, setbook] = useState([]); //change its place in third step
     var std = localStorage.getItem("StudentID")
 
-    useEffect(() => {
-        if (!std) {
-            alert("login first")
-            navi("/")
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (!std) {
+    //         alert("login first")
+    //         navi("/")
+    //     }
+    // }, [])
 
 
     const [data, setdata] = useState([])

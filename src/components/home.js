@@ -1,7 +1,35 @@
 import react from "react";
 import Navbar from './navbar';
 import Footer from "./footer";
+import { useNavigate } from "react-router-dom";
+import { db } from "./firebase";
+
  function Home(){
+    var navi =useNavigate();
+    function login(e) {
+        e.preventDefault();
+        var d = new FormData(e.currentTarget);
+        var id = d.get("uname")
+        var pass = d.get('password')
+        console.log(id)
+        console.log(pass)
+
+        db.collection("Admin").where("Username", "==", id).where("Password", "==", pass).get().then((succ) => {
+            if (succ.size == 0) {
+                alert("wrong id or password")
+            } else {
+                succ.forEach((abc) => {
+                    console.log(abc.data())
+                    alert("login successful")
+                    localStorage.setItem("AdminID", abc.id)
+                    console.log(abc.id)
+                    navi("/Managestf")
+                })
+            }
+        })
+    }
+
+
     return(
         <>
         {/* <Navbar/> */}
@@ -28,7 +56,7 @@ import Footer from "./footer";
 
                             <div className="card bg-glass">
                                 <div className="card-body px-4 py-5 px-md-5">
-                                    <form>
+                                    <form  onSubmit={login}>
 
 
 

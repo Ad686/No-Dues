@@ -74,6 +74,7 @@
 }
 
 .form1 {
+
     display: flex;
     flex-direction: column;
     margin-top: 30px;
@@ -81,7 +82,7 @@
 }
 
 .txtfld {
-    margin-bottom: 6px !important;
+    margin-bottom: 10px !important;
 }
 .txtfld1 {
     margin-top: 6px !important;

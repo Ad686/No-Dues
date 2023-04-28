@@ -16,10 +16,10 @@ export default function Managestf() {
     const [search, setSearch] = useState(""); //first step
     const [searchData, setSearchData] = useState([]); //second step
     const [book, setbook] = useState([]); //change its place in third step
-    var lib = localStorage.getItem("LibrarianID")
+    var admin = localStorage.getItem("AdminID")
 
     useEffect(() => {
-        if (!lib) {
+        if (!admin) {
             alert("login first")
             navi("/")
         }
@@ -342,6 +342,8 @@ export default function Managestf() {
                         Year: Number(Year),
                         ClgId: ClgId,
                         Image: url,
+                         Facility : staff,
+                        SelectRole : role, 
                         Contact: Number(Contact),
                         Class: Class.toLocaleLowerCase()
                     }).then((succ) => {
@@ -479,28 +481,34 @@ export default function Managestf() {
                                         <Grid item md={3} sm={5} xs={9} sx={{ marginBottom: { sm: 0, xs: 2 }, boxShadow: '0 0 3px dimgrey', padding: 3, display: 'flex', justifyContent: 'space-between' }}>
                                 <Box>
                                     <b>Name : </b><br />
-                                    <b>Student Id : </b><br />
-                                    <b>Batch : </b><br />
+                                    <b>Department </b><br />
+                                    <b>Facility : </b><br />
+                                    <b>Role : </b><br />
+
                                 </Box>
                                 <Box>
                                     {val.data.FirstName} {val.data.LastName}<br />
-                                    {val.data.StdId}<br />
-                                    {val.data.Year}<br /><br />
+                                    {val.data.Class}<br />
+                                    {val.data.Stf}<br />
+                                    {val.data.rl}<br /><br />
                                     <Button size="small" onClick={() => getdetails(val)}>view details</Button>
                                 </Box>
                             </Grid>
                                     ))
                                     : book.map((val) => (
-                                        <Grid item md={3} sm={5} xs={9} sx={{ marginBottom: { sm: 0, xs: 2 }, boxShadow: '0 0 3px dimgrey', padding: 3, display: 'flex', justifyContent: 'space-between' }}>
+                                        <Grid item  md={3} sm={5} xs={9} sx={{ marginBottom: { sm: 0, xs: 2 }, boxShadow: '0 0 3px dimgrey', padding: 3, display: 'flex', justifyContent: 'space-between' }}>
                                         <Box>
                                             <b>Name : </b><br />
-                                            <b>Student Id : </b><br />
-                                            <b>Batch : </b><br />
+                                            <b>Department : </b><br />
+                                            <b>Facility : </b><br />
+                                            <b>Role : </b><br />
+
                                         </Box>
                                         <Box>
                                             {val.data.FirstName} {val.data.LastName}<br />
-                                            {val.data.StdId}<br />
-                                            {val.data.Year}<br /><br />
+                                            {val.data.Class}<br />
+                                            {val.data.staff}<br />
+                                            {val.data.role}<br /><br />
                                             <Button size="small" onClick={() => getdetails(val)}>view details</Button>
                                         </Box>
                                     </Grid>
@@ -516,11 +524,14 @@ export default function Managestf() {
                         <Box>
                             <p><b>Name : </b>{fnm} {lnm}</p>
                             <p><b>Department : </b>{cls}</p>
-                            <p><b>Batch : </b>{year}</p>
-                            <p><b>College Id : </b>{clgId}</p>
-                            <p><b>Libraray Id : </b>{s_id} </p>
+                            {/* <p><b>Batch : </b>{year}</p> */}
+                            {/* <p><b>College Id : </b>{clgId}</p> */}
+                            <p><b>Staff Id : </b>{s_id} </p>
                             <p><b>Password : </b>{pass}</p>
                             <p><b>Contact : </b>{cot}</p>
+                            <p><b>Facility : </b>{stf}</p>
+                            <p><b>Role : </b>{rl}</p>
+
                         </Box>
                         <Box>
                             <img src={img} height={150} />
@@ -554,9 +565,33 @@ export default function Managestf() {
                                 ))}
                             </Select>
                         </FormControl>
+                        <FormControl fullWidth className="txtfld">
+                            <Select
+                                sx={{ height: 45 }}
+                                onChange={(e) => setcls(e.target.value)} value={stf}
+                                // onChange={(e) => setcls(e.target.value)}
+                                name="stf"
+                            >
+                                {classess.map((val) => (
+                                    <MenuItem onChange={(e) => setstf(e.target.value)} value={val.stf1}>{val.stf1}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <FormControl fullWidth className="txtfld">
+                            <Select
+                                sx={{ height: 45 }}
+                                onChange={(e) => setcls(e.target.value)} value={rl}
+                                // onChange={(e) => setcls(e.target.value)}
+                                name="rl"
+                            >
+                                {classesss.map((val) => (
+                                    <MenuItem onChange={(e) => setrl(e.target.value)} value={val.rl1}>{val.rl1}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
 
-                        <TextField className="txtfld" onChange={(e) => setclgId(e.target.value)} value={clgId} name="clg_id" placeholder="College Id" InputProps={{ sx: { height: 38 } }} />
-                        <TextField className="txtfld" onChange={(e) => setyear(e.target.value)} value={year} name="year" placeholder="Year" InputProps={{ sx: { height: 38 } }} />
+                        {/* <TextField className="txtfld" onChange={(e) => setclgId(e.target.value)} value={clgId} name="clg_id" placeholder="College Id" InputProps={{ sx: { height: 38 } }} />
+                        <TextField className="txtfld" onChange={(e) => setstf(e.target.value)} value={stf} name="stf" placeholder="facility" InputProps={{ sx: { height: 38 } }} /> */}
                         <TextField className="txtfld" onChange={(e) => setcot(e.target.value)} value={cot} name="contact" placeholder="Contact" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" value={s_id} InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" value={pass} InputProps={{ sx: { height: 38 } }} />

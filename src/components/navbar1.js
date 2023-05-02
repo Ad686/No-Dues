@@ -58,7 +58,8 @@ export default function Navbar1() {
                     <Typography variant="h5" sx={{margin:'auto'}}>
                         NO DUES
                     </Typography>
-
+                
+                   
                     <MenuBar onClick={opnmenu} sx={{ display: { xs: "block", sm: "block", md: "none", lg: "none" } }} />
                     <Drawer open={opn} anchor={"right"} onClose={opnmenu} >
                         <List>

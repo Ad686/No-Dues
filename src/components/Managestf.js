@@ -1,13 +1,13 @@
 
 
-import { Delete, Edit } from "@mui/icons-material";
-import { Autocomplete, Box, Button, ButtonGroup, CircularProgress, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControl, Grid, Input, InputLabel, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, CircularProgress, Collapse, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db, storage } from "./firebase";
 import Navbar1 from "./navbar1";
 import firebase from "firebase";
+import { Pattern } from "@mui/icons-material";
 
 export default function Managestf() {
 
@@ -37,7 +37,7 @@ export default function Managestf() {
     // const classes = [{ cls1: '' }, { cls1: 'b.com' }, { cls1: 'b.c.a' }, { cls1: 'b.tech' }, { cls1: 'b.a' }, { cls1: 'M.com' },]
     const classes = [{ cls1: 'Mechanical' }, { cls1: 'Civil' }, { cls1: 'Information technology' }, { cls1: 'Computer Science ' }, { cls1: 'Electrical' },{ cls1: 'Electronics and Communications'},{ cls1: 'Production' },]
     const classess = [{ stf1: 'Not Applicable' }, { stf1: 'Hardware Lab' }, { stf1: 'Web Devlopment Lab' }, { stf1: 'College Library ' }, { stf1: 'DBMS Lab' },{ stf1: 'PL-1'},{ stf1: 'PL-2' },{ stf1: 'Hostel' },{ stf1: 'Training and Placement Cell' },{ stf1: 'OS-1 Lab' },{ stf1: 'HPC Lab' },]
-    const classesss = [{ rl1: 'Not Applicable' }, { rl1: 'Clerk' }, { rl1: 'HOD' }, { rl1: 'Librarian ' }, { rl1: 'Mess Accountent' },{ rl1: 'Record Keeper'},{ rl1: 'Supdt(A/C)' },{ rl1: 'Chief Warden' },{ rl1: 'Mentor' },{ rl1: 'Lab Technician' },]
+    const classesss = [{ rl1: 'Not Applicable' }, { rl1: 'Clerk' }, { rl1: 'HOD' }, { rl1: 'Librarian ' }, { rl1: 'Mess Accountant' },{ rl1: 'Record Keeper'},{ rl1: 'Supdt(A/C)' },{ rl1: 'Chief Warden' },{ rl1: 'Mentor' },{ rl1: 'Lab Technician' },]
     
     function addstd(e) {
         e.preventDefault();
@@ -140,8 +140,8 @@ export default function Managestf() {
                         Year: Number(Year),
                         // ClgId: ClgId,
                         Image: url,
-                        Facility : staff,
-                        SelectRole : role, 
+                        Facility: staff,
+                        SelectRole: role, 
                         Contact: Number(contact),
                         Class: Class.toLocaleLowerCase(),
                         StdId: StdId,
@@ -234,8 +234,8 @@ export default function Managestf() {
             setlnm(succ.data().LastName)
             setyear(succ.data().Year)
             setcls(succ.data().Class)
-            setstf(succ.data().staff)
-            setrl(succ.data().role)
+            setstf(succ.data().Facility)
+            setrl(succ.data().SelectRole)
             setpass(succ.data().Password)
             sets_id(succ.data().StdId)
             setcot(succ.data().Contact)
@@ -273,8 +273,8 @@ export default function Managestf() {
 
         var F_Name = fnm;
         var L_Name = lnm;
-        var ClgId = clgId;
-        var Year = year;
+        var StfId = clgId;
+        
         var Contact = cot;
         var Class = cls;
         var staff = stf;
@@ -339,12 +339,14 @@ export default function Managestf() {
                     db.collection("Add_staff").doc(id).update({
                         FirstName: F_Name.toLocaleLowerCase(),
                         LastName: L_Name.toLocaleLowerCase(),
-                       
-                        Image: url,
-                         Facility : stf,
-                        SelectRole : rl, 
                         Contact: Number(Contact),
-                        Class: Class.toLocaleLowerCase()
+                        Class: Class.toLocaleLowerCase(),
+                        Facility : staff,
+                        SelectRole : role, 
+                        Image: url,
+                        
+                      
+                        
                     }).then((succ) => {
                         setprog(0)
                         e.target.reset()
@@ -383,12 +385,12 @@ export default function Managestf() {
                                 <form encType="multipart/form-data" className="form1" onSubmit={addstd} style={{ marginTop: '11px' }}>
                                 
                                     {/* <form encType="multipart/form-data" className="form1" onSubmit={id2 ? (editstd) : (addstd)} style={{ marginTop: '11px' }}> */}
-                                    <TextField className="txtfld" name="f_name" placeholder="First Name" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="l_name" placeholder="Last Name" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="contact" placeholder="Contact" InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="f_name" placeholder="First Name" required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="l_name" placeholder="Last Name"  required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="contact" placeholder="Contact"  required InputProps={{ sx: { height: 38 } }} />
                                    
                                     {/* <TextField className="txtfld" onChange={(e) => setcls(e.target.value)} value={cls} name="l_name" placeholder="Class Name" InputProps={{ sx: { height: 38 } }} /> */}
-                                    <FormControl fullWidth className="txtfld">
+                                    <FormControl fullWidth className="txtfld" required>
                                         {/* {!id2 && ( */}
                                         <InputLabel id="demo-simple-select-label" >Department</InputLabel>
                                         {/* )} */}
@@ -403,10 +405,11 @@ export default function Managestf() {
                                             ))}
                                         </Select>
                                     </FormControl>
-                                    <FormControl fullWidth className="txtfld">
+                                    <FormControl fullWidth className="txtfld" required>
                                         {/* {!id2 && ( */}
                                         <InputLabel id="demo-simple-select-label" >Facility</InputLabel>
                                         {/* )} */}
+                                        
                                         <Select
                                             sx={{ height: 45 }}
                                             // value={cls}
@@ -418,7 +421,7 @@ export default function Managestf() {
                                             ))}
                                         </Select>
                                     </FormControl>
-                                    <FormControl fullWidth className="txtfld">
+                                    <FormControl fullWidth className="txtfld" required>
                                         {/* {!id2 && ( */}
                                         <InputLabel id="demo-simple-select-label" >Select Role</InputLabel>
                                         {/* )} */}
@@ -439,8 +442,8 @@ export default function Managestf() {
                                     <TextField className="txtfld" name="year" placeholder="Batch" InputProps={{ sx: { height: 38 } }} />
                                     <TextField className="txtfld" name="contact" placeholder="Contact" InputProps={{ sx: { height: 38 } }} /> */}
                                     {/* <input type="file" className="txtxfld2 " name="img" /> */}
-                                    <Button variant="contained" onClick={() => filePickerRef.current.click()} style={{ marginBottom: 10 }} fullWidth>upload staff image</Button>
-                                        <input ref={filePickerRef} type="file" hidden className="txtfld" name="img" />
+                                    <Button variant="contained" onClick={() => filePickerRef.current.click()} style={{ marginBottom: 10 }}  fullWidth>upload staff image</Button>
+                                        <input ref={filePickerRef} type="file"  hidden className="txtfld" name="img" />
                                     {prog != 0 ? (
                                         <CircularProgress></CircularProgress>
                                     ) : (
@@ -549,11 +552,11 @@ export default function Managestf() {
                 <DialogTitle></DialogTitle>
                 <DialogContent>
                     <form encType="multipart/form-data" className="form1" onSubmit={updatestd} style={{ marginTop: '11px' }}>
-                        <TextField className="txtfld" onChange={(e) => setfnm(e.target.value)} value={fnm} name="f_name" label="First Name" InputProps={{ sx: { height: 38 } }} />
-                        <TextField className="txtfld" onChange={(e) => setlnm(e.target.value)} value={lnm} name="l_name" label="Last Name" InputProps={{ sx: { height: 38 } }} />
-                        <TextField className="txtfld" onChange={(e) => setcot(e.target.value)} value={cot} name="contact" label="Contact" InputProps={{ sx: { height: 38 } }} />
+                        <TextField className="txtfld" onChange={(e) => setfnm(e.target.value)} value={fnm} name="f_name" label="First Name"required InputProps={{ sx: { height: 38 } }} />
+                        <TextField className="txtfld" onChange={(e) => setlnm(e.target.value)} value={lnm} name="l_name" label="Last Name"required InputProps={{ sx: { height: 38 } }} />
+                        <TextField className="txtfld" onChange={(e) => setcot(e.target.value)} value={cot} name="contact" label="Contact"required InputProps={{ sx: { height: 38 } }} />
                         
-                        <FormControl fullWidth className="txtfld">
+                        <FormControl fullWidth className="txtfld" required>
                         <InputLabel id="demo-simple-select-label" >Department</InputLabel>
                             <Select
                                 sx={{ height: 45 }}
@@ -566,11 +569,11 @@ export default function Managestf() {
                                 ))}
                             </Select>
                         </FormControl>
-                        <FormControl fullWidth className="txtfld">
+                        <FormControl fullWidth className="txtfld" required>
                         <InputLabel id="demo-simple-select-label" >Facility</InputLabel>
                             <Select
                                 sx={{ height: 45 }}
-                                onChange={(e) => setcls(e.target.value)} value={stf}
+                                onChange={(e) => setstf(e.target.value)} value={stf}
                                 // onChange={(e) => setcls(e.target.value)}
                                 name="stf"
                             >
@@ -579,11 +582,11 @@ export default function Managestf() {
                                 ))}
                             </Select>
                         </FormControl>
-                        <FormControl fullWidth className="txtfld">
+                        <FormControl fullWidth className="txtfld" required>
                         <InputLabel id="demo-simple-select-label" >Select role</InputLabel>
                             <Select
                                 sx={{ height: 45 }}
-                                onChange={(e) => setcls(e.target.value)} value={rl}
+                                onChange={(e) => setrl(e.target.value)} value={rl}
                                 // onChange={(e) => setcls(e.target.value)}
                                 name="rl"
                             >
@@ -595,8 +598,8 @@ export default function Managestf() {
 
                         {/* <TextField className="txtfld" onChange={(e) => setclgId(e.target.value)} value={clgId} name="clg_id" placeholder="College Id" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" onChange={(e) => setstf(e.target.value)} value={stf} name="stf" placeholder="facility" InputProps={{ sx: { height: 38 } }} /> */}
-                        <TextField className="txtfld" value={s_id} label="Staff Id" InputProps={{ sx: { height: 38 } }} />
-                        <TextField className="txtfld" value={pass} label="Password" InputProps={{ sx: { height: 38 } }} />
+                        <TextField className="txtfld" value={s_id} label="Staff Id" required InputProps={{ sx: { height: 38 } }} />
+                        <TextField className="txtfld" value={pass} label="Password" required InputProps={{ sx: { height: 38 } }} />
                         <input type="file" className="txtxfld2 " name="img" required />
 
                         <Button variant="contained" type='submit' fullWidth>Edit Student</Button>

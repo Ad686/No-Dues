@@ -298,6 +298,8 @@ export default function ManageStd() {
 
         var F_Name = fnm;
         var L_Name = lnm;
+        var FatherName = fathername;
+        var Address = address;
         var ClgId = clgId;
         var Year = year;
         var Contact = cot;
@@ -367,6 +369,8 @@ export default function ManageStd() {
                     db.collection("Add_Std").doc(id).update({
                         FirstName: F_Name.toLocaleLowerCase(),
                         LastName: L_Name.toLocaleLowerCase(),
+                        FatherName : FatherName.toLocaleLowerCase(),
+                        Address: Address,
                         Year: Number(Year),
                         ClgId: ClgId,
                         Image: url,
@@ -376,8 +380,8 @@ export default function ManageStd() {
                         BankName : Bank_nm, 
                         BankAddress : Branch_add,
                         BankNumber : Bank_num,
-                        Codetype : cd,
-                        Code : Code_type
+                        Codetype : Code_type,
+                        Code : cd
                     
                     }).then((succ) => {
                         setprog(0)
@@ -415,14 +419,14 @@ export default function ManageStd() {
                             <h3>Personal Info</h3>
                                 <form encType="multipart/form-data" className="form1" onSubmit={addstd} style={{ marginTop: '11px' }}>
                                     {/* <form encType="multipart/form-data" className="form1" onSubmit={id2 ? (editstd) : (addstd)} style={{ marginTop: '11px' }}> */}
-                                    <TextField className="txtfld" name="f_name" placeholder="First Name" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="l_name" placeholder="Last Name" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="father_name" placeholder="Father Name" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="address" placeholder="Address" InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="f_name" placeholder="First Name" required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="l_name" placeholder="Last Name"required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="father_name" placeholder="Father Name"required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="address" placeholder="Address"required InputProps={{ sx: { height: 38 } }} />
 
 
                                     {/* <TextField className="txtfld" onChange={(e) => setcls(e.target.value)} value={cls} name="l_name" placeholder="Class Name" InputProps={{ sx: { height: 38 } }} /> */}
-                                    <FormControl fullWidth className="txtfld">
+                                    <FormControl fullWidth className="txtfld" required>
                                         {/* {!id2 && ( */}
                                         <InputLabel id="demo-simple-select-label" >Department</InputLabel>
                                         {/* )} */}
@@ -439,16 +443,16 @@ export default function ManageStd() {
                                     </FormControl>
 
                                    {/* <FormControl></FormControl> */}
-                                    <TextField className="txtfld" name="clg_id" placeholder="College Id" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="year" placeholder="Batch" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="contact" placeholder="Contact" InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="clg_id" placeholder="College Id" required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="year" placeholder="Batch" required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="contact" placeholder="Contact" required InputProps={{ sx: { height: 38 } }} />
                                     {/* <input type="file" className="txtxfld2 " name="img" /> */}
                                     <h3>Bank Details</h3>
-                                    <TextField className="txtfld" name="bank_acc" placeholder="Bank Account Number" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="bank_nm" placeholder="Bank Name" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="branch_add" placeholder=" Branch Address" InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="bank_num" placeholder=" Bank Phone Number" InputProps={{ sx: { height: 38 } }} />
-                                    <FormControl fullWidth className="txtfld">
+                                    <TextField className="txtfld" name="bank_acc" placeholder="Bank Account Number"required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="bank_nm" placeholder="Bank Name"required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="branch_add" placeholder=" Branch Address" required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="bank_num" placeholder=" Bank Phone Number"required InputProps={{ sx: { height: 38 } }} />
+                                    <FormControl fullWidth className="txtfld"required>
                                         {/* {!id2 && ( */}
                                         <InputLabel id="demo-simple-select-label" >Code Type</InputLabel>
                                         {/* )} */}
@@ -463,7 +467,7 @@ export default function ManageStd() {
                                             ))}
                                         </Select>
                                     </FormControl>
-                                    <TextField className="txtfld" name="code_type" placeholder=" NEFT/RTGS/IFSC Code" InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="code_type" placeholder=" NEFT/RTGS/IFSC Code" required InputProps={{ sx: { height: 38 } }} />
 
                                     <Button variant="contained" onClick={() => filePickerRef.current.click()} style={{ marginBottom: 10 }} fullWidth>upload student image</Button>
                   <input ref={filePickerRef} type="file" hidden className="txtfld" name="img" />
@@ -618,7 +622,7 @@ export default function ManageStd() {
                        
                         <TextField className="txtfld" onChange={(e) => setbanknumber(e.target.value)} value={banknumber} name="banknumber" label="Bank Phone Number" InputProps={{ sx: { height: 38 } }} />
                         <FormControl fullWidth className="txtfld">
-                        <InputLabel id="demo-simple-select-label" >Code</InputLabel>
+                        <InputLabel id="demo-simple-select-label" >Code Type</InputLabel>
                            
                             <Select
                                 

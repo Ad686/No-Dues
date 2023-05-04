@@ -197,7 +197,9 @@ export default function ManageStd() {
                 else if (item.data.ClgId.toLowerCase().startsWith(textData)) {
                     return item
                 } 
-                
+                else if (item.data.Class.toLowerCase().startsWith(textData)) {
+                    return item
+                } 
                 // else if (item.data.Class.toLowerCase().startsWith(textData)) {
                 //     return item
                 // }
@@ -512,11 +514,15 @@ export default function ManageStd() {
                                     <b>Name : </b><br />
                                     <b>College Id : </b><br />
                                     <b>Batch : </b><br />
+                                    <b>Department : </b><br />
+                                    
                                 </Box>
                                 <Box>
                                     {val.data.FirstName} {val.data.LastName}<br />
                                     {val.data.ClgId}<br />
-                                    {val.data.Year}<br /><br />
+                                    {val.data.Year}<br />
+                                    {val.data.Class}
+                                    <br />
                                     <Button size="small" onClick={() => getdetails(val)}>view details</Button>
                                 </Box>
                             </Grid>
@@ -527,11 +533,14 @@ export default function ManageStd() {
                                             <b>Name : </b><br />
                                             <b>College Id : </b><br />
                                             <b>Batch : </b><br />
+                                            <b>Department : </b><br />
+
                                         </Box>
                                         <Box>
                                             {val.data.FirstName} {val.data.LastName}<br />
                                             {val.data.ClgId}<br />
-                                            {val.data.Year}<br /><br />
+                                            {val.data.Year}<br />
+                                            {val.data.Class}<br /><br/>
                                             <Button size="small" onClick={() => getdetails(val)}>view details</Button>
                                         </Box>
                                     </Grid>

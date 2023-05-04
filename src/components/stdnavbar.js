@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MenuBar from "@mui/icons-material/Menu"
 
-export default function Navbar2() {
+export default function Stdnavbar() {
 
     var navi = useNavigate()
     function page(x) {
@@ -30,15 +30,22 @@ export default function Navbar2() {
                         <List>
                             <ListItem>
                                 <ListItemButton onClick={() => page("#")}>
-                                    <LibraryBooks />Manage Request
+                                    <LibraryBooks />Request
                                 </ListItemButton>
                             </ListItem>
                             <Divider />
                             <ListItem>
                                 <ListItemButton onClick={()=>page("#")}>
-                                    <FeaturedPlayList />Manage Dues
+                                    <FeaturedPlayList />Status
                                 </ListItemButton>
                             </ListItem>
+                            <Divider />
+                            <ListItem>
+                                <ListItemButton onClick={()=>page("#")}>
+                                    <BookmarkAdded />Clear Dues
+                                </ListItemButton>
+                            </ListItem>
+                            <Divider />
                             <Divider />
                             <ListItem>
                                 <ListItemButton onClick={logout}>
@@ -58,18 +65,24 @@ export default function Navbar2() {
                         NO DUES
                     </Typography>
 
-                    {/* <MenuBar onClick={opnmenu} sx={{ display: { xs: "block", sm: "block", md: "none", lg: "none" } }} /> */}
+                    <MenuBar onClick={opnmenu} sx={{ display: { xs: "block", sm: "block", md: "none", lg: "none" } }} />
                     <Drawer open={opn} anchor={"right"} onClose={opnmenu} >
                         <List>
                             <ListItem>
                                 <ListItemButton onClick={()=>page("#")}>
-                                    <LibraryBooks />Manage Request
+                                    <LibraryBooks />Request
                                 </ListItemButton>
                             </ListItem>
                             <Divider />
                             <ListItem>
                                 <ListItemButton onClick={() => page("#")}>
-                                    <FeaturedPlayList />Manage Dues
+                                    <FeaturedPlayList />Status
+                                </ListItemButton>
+                            </ListItem>
+                            <Divider />
+                            <ListItem>
+                                <ListItemButton onClick={()=>page("#")}>
+                                    <BookmarkAdded/>Clear Dues
                                 </ListItemButton>
                             </ListItem>
                             <Divider />

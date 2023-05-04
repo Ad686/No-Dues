@@ -187,7 +187,13 @@ export default function Managestf() {
                 else if (item.data.LastName.toLowerCase().startsWith(textData)) {
                     return item
                 }
-                else if (item.data.StdId.toLowerCase().startsWith(textData)) {
+                else if (item.data.Class.toLowerCase().startsWith(textData)) {
+                    return item
+                } 
+                else if (item.data.Facility.toLowerCase().startsWith(textData)) {
+                    return item
+                } 
+                else if (item.data.SelectRole.toLowerCase().startsWith(textData)) {
                     return item
                 } 
                 // else if (item.data.Class.toLowerCase().startsWith(textData)) {

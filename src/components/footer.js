@@ -38,7 +38,7 @@ export default function Footer() {
                             <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
 
                                 <h6 className="text-uppercase fw-bold mb-4">
-                                    <i className="fas fa-gem me-3 text-secondary"></i>No Dues
+                                  No Dues
                                 </h6>
                                 <p>
                                     No-dues is an easy to use online tool which helps the administration to maintain a record of pending dues and helps the students to review and submit them.
@@ -87,7 +87,7 @@ export default function Footer() {
                             <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
 
                                 <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
-                                <p><i className="fas fa-home me-3 text-secondary"></i> Guru Nanak Dev Engineering College
+                                <p> Guru Nanak Dev Engineering College
                                     Gill Park, Gill Road, Ludhiana 141006, Punjab(India).</p>
                                 <p>
                                     <i className="fas fa-envelope me-3 text-secondary"></i>

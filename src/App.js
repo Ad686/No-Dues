@@ -5,16 +5,9 @@ import 'jquery/src/jquery';
 import 'bootstrap/dist/js/bootstrap';
 import Home from './components/home';
 import Managestf from './components/Managestf';
-import AllBooks from './components/AllBooks';
 import ManageStd from './components/ManageStds';
-import StdAllbook from './components/StdAllbook';
-import IssueReq from './components/issuerequest';
-import BookIssued from './components/BookIssued';
-import BookReq from './components/BookReq';
-import GetReqBook from './components/GetReqBook';
-import StdBookIssued from './components/stdbookissue';
-import AllBookIssued from './components/AllBookIssued'
-// import Managestf from './components/Managestf'
+import Studentrequest from './components/studentrequest';
+import Staffmanagerequest from './components/staffmanagerequest'
 
 
 
@@ -25,17 +18,9 @@ function App() {
                   <Routes>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/Managestf" element={<Managestf/>}/>
-                        <Route path="/allbooks" element={<AllBooks/>}/>
                         <Route path="/managestudents" element={<ManageStd/>}/>
-                        <Route path="/books" element={<StdAllbook/>}/>
-                        <Route path="/issuerequest" element={<IssueReq/>}/>
-                        <Route path="/booksissued" element={<BookIssued/>}/>
-                        <Route path="/bookrequest" element={<BookReq/>}/>
-                        <Route path="/bookrequests" element={<GetReqBook/>}/>
-                        {/* <Route path="/stdBookIssued" element={<StdBookIssued/>}/> */}
-                        <Route path="/AllBookIssued" element={<AllBookIssued/>}/>
-
-
+                        <Route path="/studentrequest" element={<Studentrequest/>}/>
+                        <Route path="/staffmanagerequest" element={<Staffmanagerequest/>}/>
                   </Routes>
             </Router>
       );

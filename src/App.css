@@ -164,6 +164,18 @@
     background-color: black;
   }
   .bg-glass {
-    background-color: hsla(0, 0%, 100%, 0.9) !important;
+    background-color: hsla(0, 0%, 100%) !important;
     backdrop-filter: saturate(200%) blur(25px);
+    box-shadow:  4px 4px 50px black !important;
+  }
+  .rqtbtn{
+    margin-top: 40vh;
+    display: flex;
+    justify-content: center;
+    
+  }
+  
+  .lgbtn:hover{
+    background-color:rgb(1,112,219) !important;
+    color: white !important;
   }

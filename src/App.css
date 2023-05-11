@@ -179,3 +179,17 @@
     background-color:rgb(1,112,219) !important;
     color: white !important;
   }
+  .wlcm{
+    margin-top: 10vh;
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+}
+.gridd{
+    
+        margin-top: 10vh;
+        display: flex;
+        justify-content: center;
+        font-size: 50px;
+    
+}

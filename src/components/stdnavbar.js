@@ -39,13 +39,13 @@ export default function Stdnavbar() {
                                     <FeaturedPlayList />Status
                                 </ListItemButton>
                             </ListItem>
-                            <Divider />
+                            {/* <Divider />
                             <ListItem>
                                 <ListItemButton onClick={()=>page("#")}>
                                     <BookmarkAdded />Clear Dues
                                 </ListItemButton>
                             </ListItem>
-                            <Divider />
+                            <Divider /> */}
                             <Divider />
                             <ListItem>
                                 <ListItemButton onClick={logout}>

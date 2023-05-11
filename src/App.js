@@ -7,6 +7,8 @@ import Home from './components/home';
 import Managestf from './components/Managestf';
 import ManageStd from './components/ManageStds';
 import Studentrequest from './components/studentrequest';
+import Staffmanagedues from './components/staffmanagedues';
+
 import Staffmanagerequest from './components/staffmanagerequest'
 
 
@@ -21,6 +23,8 @@ function App() {
                         <Route path="/managestudents" element={<ManageStd/>}/>
                         <Route path="/studentrequest" element={<Studentrequest/>}/>
                         <Route path="/staffmanagerequest" element={<Staffmanagerequest/>}/>
+                        <Route path="/staffmanagedues" element={<Staffmanagedues/>}/>
+
                   </Routes>
             </Router>
       );

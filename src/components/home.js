@@ -60,9 +60,7 @@ export default function Home() {
           // alert("login successful")
           succ.forEach((abc) => {
             alert("login successful");
-            console.log(id);
-            localStorage.setItem("CollegeID", id);
-            console.log(abc.id);
+            localStorage.setItem("CollegeID", abc.id);
             navi("/studentrequest");
           });
         }

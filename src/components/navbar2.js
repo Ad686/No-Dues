@@ -29,13 +29,13 @@ export default function Navbar2() {
                     <Box>
                         <List>
                             <ListItem>
-                                <ListItemButton onClick={() => page("#")}>
+                                <ListItemButton onClick={() => page("staffmanagerequest")}>
                                     <LibraryBooks />Manage Request
                                 </ListItemButton>
                             </ListItem>
                             <Divider />
                             <ListItem>
-                                <ListItemButton onClick={()=>page("#")}>
+                                <ListItemButton onClick={()=>page("staffmanagedues")}>
                                     <FeaturedPlayList />Manage Dues
                                 </ListItemButton>
                             </ListItem>

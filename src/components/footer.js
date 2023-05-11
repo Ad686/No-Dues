@@ -107,7 +107,7 @@ export default function Footer() {
 
 
                 <div className="text-center p-4">
-                    © 2022 Copyright:
+                    © 2023 Copyright:
                     Guru Nank Dev Engineering College
                 </div>
 

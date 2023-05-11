@@ -33,8 +33,8 @@ export default function ManageStd() {
 
 
     // const classes = [{ cls1: '' }, { cls1: 'b.com' }, { cls1: 'b.c.a' }, { cls1: 'b.tech' }, { cls1: 'b.a' }, { cls1: 'M.com' },]
-    const classes = [{ cls1: 'Mechanical' }, { cls1: 'Civil' }, { cls1: 'Information technology' }, { cls1: 'Computer Science ' }, { cls1: 'Electrical' },{ cls1: 'Electronics and Communications'},{ cls1: 'Production' },]
-    const cd = [{cd1:'NEFT'},{cd1:'RTGS'},{cd1:'IFSC'},]
+    const classes = [{ cls1: 'Mechanical' }, { cls1: 'Civil' }, { cls1: 'Information technology' }, { cls1: 'Computer Science ' }, { cls1: 'Electrical' }, { cls1: 'Electronics and Communications' }, { cls1: 'Production' },]
+    const cd = [{ cd1: 'NEFT' }, { cd1: 'RTGS' }, { cd1: 'IFSC' },]
     function addstd(e) {
         e.preventDefault();
         var d = new FormData(e.currentTarget);
@@ -137,7 +137,7 @@ export default function ManageStd() {
                     db.collection("Add_Std").add({
                         FirstName: F_Name.toLocaleLowerCase(),
                         LastName: L_Name.toLocaleLowerCase(),
-                        FatherName:Father_Name.toLocaleLowerCase(),
+                        FatherName: Father_Name.toLocaleLowerCase(),
                         Address: address,
                         Year: Number(Year),
                         ClgId: ClgId,
@@ -145,12 +145,12 @@ export default function ManageStd() {
                         Contact: Number(Contact),
                         Class: Class.toLocaleLowerCase(),
 
-                        BankAccountNo : Bank_acc,
-                        BankName : Bank_nm, 
-                        BankAddress : Branch_add,
-                        BankNumber : Bank_num,
-                        Codetype : cd,
-                        Code : Code_type,
+                        BankAccountNo: Bank_acc,
+                        BankName: Bank_nm,
+                        BankAddress: Branch_add,
+                        BankNumber: Bank_num,
+                        Codetype: cd,
+                        Code: Code_type,
                         StdId: StdId,
                         Password: s_pass,
                         Date: firebase.firestore.FieldValue.serverTimestamp()
@@ -196,10 +196,10 @@ export default function ManageStd() {
                 }
                 else if (item.data.ClgId.toLowerCase().startsWith(textData)) {
                     return item
-                } 
+                }
                 else if (item.data.Class.toLowerCase().startsWith(textData)) {
                     return item
-                } 
+                }
                 // else if (item.data.Class.toLowerCase().startsWith(textData)) {
                 //     return item
                 // }
@@ -232,16 +232,16 @@ export default function ManageStd() {
     const [img, setimg] = useState('')
     const [s_id, sets_id] = useState('')
     const [pass, setpass] = useState('')
-    const[fathername, setfathername]= useState('')
-    const[address, setaddress]= useState('')
-    const[bankaccountno, setbankaccno]= useState('')
-    const[bankname, setbankname]= useState('')
-    const[bankaddress, setbankaddress]= useState('')
-    const[banknumber, setbanknumber]= useState('')
-    const[codetype, setcodetype]= useState('')
-    const[code, setcode]= useState('')
-    
-    
+    const [fathername, setfathername] = useState('')
+    const [address, setaddress] = useState('')
+    const [bankaccountno, setbankaccno] = useState('')
+    const [bankname, setbankname] = useState('')
+    const [bankaddress, setbankaddress] = useState('')
+    const [banknumber, setbanknumber] = useState('')
+    const [codetype, setcodetype] = useState('')
+    const [code, setcode] = useState('')
+
+
     const [id, setid] = useState('')
 
     function getdetails(x) {
@@ -306,12 +306,12 @@ export default function ManageStd() {
         var Year = year;
         var Contact = cot;
         var Class = cls;
-        var Bank_acc =  bankaccountno;
+        var Bank_acc = bankaccountno;
         var Bank_nm = bankname;
         var Branch_add = bankaddress;
         var Bank_num = banknumber;
         var cd = code;
-        var Code_type = codetype; 
+        var Code_type = codetype;
         var alpha = /[A-Z a-z,'&.+]/;
         var abc = []
 
@@ -371,20 +371,20 @@ export default function ManageStd() {
                     db.collection("Add_Std").doc(id).update({
                         FirstName: F_Name.toLocaleLowerCase(),
                         LastName: L_Name.toLocaleLowerCase(),
-                        FatherName : FatherName.toLocaleLowerCase(),
+                        FatherName: FatherName.toLocaleLowerCase(),
                         Address: Address,
                         Year: Number(Year),
                         ClgId: ClgId,
                         Image: url,
                         Contact: Number(Contact),
                         Class: Class.toLocaleLowerCase(),
-                        BankAccountNo : Bank_acc,
-                        BankName : Bank_nm, 
-                        BankAddress : Branch_add,
-                        BankNumber : Bank_num,
-                        Codetype : Code_type,
-                        Code : cd
-                    
+                        BankAccountNo: Bank_acc,
+                        BankName: Bank_nm,
+                        BankAddress: Branch_add,
+                        BankNumber: Bank_num,
+                        Codetype: Code_type,
+                        Code: cd
+
                     }).then((succ) => {
                         setprog(0)
                         e.target.reset()
@@ -406,25 +406,25 @@ export default function ManageStd() {
                     <Grid item lg={7} md={7} sm={7} xs={12}>
                         <Button variant="outlined" onClick={() => setopn(!opn)} className="addstd" size="large">Add Student</Button>&nbsp;&nbsp;&nbsp;
                         <TextField
-                        id="text-field"
-                        placeholder="Search"
-                        variant="outlined"
-                        // size="large"
-                        InputProps={{ sx: { height: 38} }}
-                        className="srch"
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
+                            id="text-field"
+                            placeholder="Search"
+                            variant="outlined"
+                            // size="large"
+                            InputProps={{ sx: { height: 38 } }}
+                            className="srch"
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
                         {/* <TextField id="text-field" label="🔍Search" variant="outlined"  size="large" className="srch"  InputProps={{ sx: { height: 38} }}/> */}
                         <Box>
-                       
+
                             <Collapse in={opn}>
-                            <h3>Personal Info</h3>
+                                <h3>Personal Info</h3>
                                 <form encType="multipart/form-data" className="form1" onSubmit={addstd} style={{ marginTop: '11px' }}>
                                     {/* <form encType="multipart/form-data" className="form1" onSubmit={id2 ? (editstd) : (addstd)} style={{ marginTop: '11px' }}> */}
                                     <TextField className="txtfld" name="f_name" placeholder="First Name" required InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="l_name" placeholder="Last Name"required InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="father_name" placeholder="Father Name"required InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="address" placeholder="Address"required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="l_name" placeholder="Last Name" required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="father_name" placeholder="Father Name" required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="address" placeholder="Address" required InputProps={{ sx: { height: 38 } }} />
 
 
                                     {/* <TextField className="txtfld" onChange={(e) => setcls(e.target.value)} value={cls} name="l_name" placeholder="Class Name" InputProps={{ sx: { height: 38 } }} /> */}
@@ -444,17 +444,17 @@ export default function ManageStd() {
                                         </Select>
                                     </FormControl>
 
-                                   {/* <FormControl></FormControl> */}
+                                    {/* <FormControl></FormControl> */}
                                     <TextField className="txtfld" name="clg_id" placeholder="College Id" required InputProps={{ sx: { height: 38 } }} />
                                     <TextField className="txtfld" name="year" placeholder="Batch" required InputProps={{ sx: { height: 38 } }} />
                                     <TextField className="txtfld" name="contact" placeholder="Contact" required InputProps={{ sx: { height: 38 } }} />
                                     {/* <input type="file" className="txtxfld2 " name="img" /> */}
                                     <h3>Bank Details</h3>
-                                    <TextField className="txtfld" name="bank_acc" placeholder="Bank Account Number"required InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="bank_nm" placeholder="Bank Name"required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="bank_acc" placeholder="Bank Account Number" required InputProps={{ sx: { height: 38 } }} />
+                                    <TextField className="txtfld" name="bank_nm" placeholder="Bank Name" required InputProps={{ sx: { height: 38 } }} />
                                     <TextField className="txtfld" name="branch_add" placeholder=" Branch Address" required InputProps={{ sx: { height: 38 } }} />
-                                    <TextField className="txtfld" name="bank_num" placeholder=" Bank Phone Number"required InputProps={{ sx: { height: 38 } }} />
-                                    <FormControl fullWidth className="txtfld"required>
+                                    <TextField className="txtfld" name="bank_num" placeholder=" Bank Phone Number" required InputProps={{ sx: { height: 38 } }} />
+                                    <FormControl fullWidth className="txtfld" required>
                                         {/* {!id2 && ( */}
                                         <InputLabel id="demo-simple-select-label" >Code Type</InputLabel>
                                         {/* )} */}
@@ -472,7 +472,7 @@ export default function ManageStd() {
                                     <TextField className="txtfld" name="code_type" placeholder=" NEFT/RTGS/IFSC Code" required InputProps={{ sx: { height: 38 } }} />
 
                                     <Button variant="contained" onClick={() => filePickerRef.current.click()} style={{ marginBottom: 10 }} fullWidth>upload student image</Button>
-                  <input ref={filePickerRef} type="file" hidden className="txtfld" name="img" />
+                                    <input ref={filePickerRef} type="file" hidden className="txtfld" name="img" />
                                     {prog != 0 ? (
                                         <CircularProgress></CircularProgress>
                                     ) : (
@@ -506,46 +506,46 @@ export default function ManageStd() {
                             </Grid>
                         ))}
                     </Grid> */}
-                     <Grid container sx={{ gap: { md: '0.1', sm: 2 }, justifyContent: { md: 'start', xs: 'center' } }}>
-                                {search
-                                    ? searchData.map((val) => (
-                                        <Grid item md={3} sm={5} xs={9} sx={{ marginBottom: { sm: 0, xs: 2 }, boxShadow: '0 0 3px dimgrey', padding: 3, display: 'flex', justifyContent: 'space-between' }}>
-                                <Box>
-                                    <b>Name : </b><br />
-                                    <b>College Id : </b><br />
-                                    <b>Batch : </b><br />
-                                    <b>Department : </b><br />
-                                    
-                                </Box>
-                                <Box>
-                                    {val.data.FirstName} {val.data.LastName}<br />
-                                    {val.data.ClgId}<br />
-                                    {val.data.Year}<br />
-                                    {val.data.Class}
-                                    <br />
-                                    <Button size="small" onClick={() => getdetails(val)}>view details</Button>
-                                </Box>
-                            </Grid>
-                                    ))
-                                    : book.map((val) => (
-                                        <Grid item md={3} sm={5} xs={9} sx={{ marginBottom: { sm: 0, xs: 2 }, boxShadow: '0 0 3px dimgrey', padding: 3, display: 'flex', justifyContent: 'space-between' }}>
-                                        <Box>
-                                            <b>Name : </b><br />
-                                            <b>College Id : </b><br />
-                                            <b>Batch : </b><br />
-                                            <b>Department : </b><br />
+                    <Grid container sx={{ gap: { md: '0.1', sm: 2 }, justifyContent: { md: 'start', xs: 'center' } }}>
+                        {search
+                            ? searchData.map((val) => (
+                                <Grid item md={3} sm={5} xs={9} sx={{ marginBottom: { sm: 0, xs: 2 }, boxShadow: '0 0 3px dimgrey', padding: 3, display: 'flex', justifyContent: 'space-between' }}>
+                                    <Box>
+                                        <b>Name : </b><br />
+                                        <b>College Id : </b><br />
+                                        <b>Batch : </b><br />
+                                        <b>Department : </b><br />
 
-                                        </Box>
-                                        <Box>
-                                            {val.data.FirstName} {val.data.LastName}<br />
-                                            {val.data.ClgId}<br />
-                                            {val.data.Year}<br />
-                                            {val.data.Class}<br /><br/>
-                                            <Button size="small" onClick={() => getdetails(val)}>view details</Button>
-                                        </Box>
-                                    </Grid>
-                                    ))}
-                            </Grid>
+                                    </Box>
+                                    <Box>
+                                        {val.data.FirstName} {val.data.LastName}<br />
+                                        {val.data.ClgId}<br />
+                                        {val.data.Year}<br />
+                                        {val.data.Class}
+                                        <br />
+                                        <Button size="small" onClick={() => getdetails(val)}>view details</Button>
+                                    </Box>
+                                </Grid>
+                            ))
+                            : book.map((val) => (
+                                <Grid item md={3} sm={5} xs={9} sx={{ marginBottom: { sm: 0, xs: 2 }, boxShadow: '0 0 3px dimgrey', padding: 3, display: 'flex', justifyContent: 'space-between' }}>
+                                    <Box>
+                                        <b>Name : </b><br />
+                                        <b>College Id : </b><br />
+                                        <b>Batch : </b><br />
+                                        <b>Department : </b><br />
+
+                                    </Box>
+                                    <Box>
+                                        {val.data.FirstName} {val.data.LastName}<br />
+                                        {val.data.ClgId}<br />
+                                        {val.data.Year}<br />
+                                        {val.data.Class}<br /><br />
+                                        <Button size="small" onClick={() => getdetails(val)}>view details</Button>
+                                    </Box>
+                                </Grid>
+                            ))}
+                    </Grid>
                 </Grid>
             </Grid>
 
@@ -595,16 +595,16 @@ export default function ManageStd() {
                         <h5>Personal Info</h5>
                         <TextField className="txtfld" onChange={(e) => setfnm(e.target.value)} value={fnm} name="f_name" label="First Name" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" onChange={(e) => setlnm(e.target.value)} value={lnm} name="l_name" label="Last Name" InputProps={{ sx: { height: 38 } }} />
-                        <TextField className="txtfld" onChange={(e) => setfathername(e.target.value)} value={fathername} name="father_name" label="Father Name" InputProps={{ sx: { height: 38 } }} />                      
-                      
+                        <TextField className="txtfld" onChange={(e) => setfathername(e.target.value)} value={fathername} name="father_name" label="Father Name" InputProps={{ sx: { height: 38 } }} />
+
                         <TextField className="txtfld" onChange={(e) => setaddress(e.target.value)} value={address} name="address" label="Address" InputProps={{ sx: { height: 38 } }} />
                         <FormControl fullWidth className="txtfld">
-                        <InputLabel id="demo-simple-select-label" >Department</InputLabel>
-                           
+                            <InputLabel id="demo-simple-select-label" >Department</InputLabel>
+
                             <Select
-                                
+
                                 sx={{ height: 45 }}
-                                
+
                                 onChange={(e) => setcls(e.target.value)} value={cls}
                                 // onChange={(e) => setcls(e.target.value)}
                                 name="cls"
@@ -613,30 +613,30 @@ export default function ManageStd() {
                                     <MenuItem onChange={(e) => setcls(e.target.value)} value={val.cls1}>{val.cls1}</MenuItem>
                                 ))}
                             </Select>
-                        </FormControl>                
+                        </FormControl>
                         <TextField className="txtfld" onChange={(e) => setclgId(e.target.value)} value={clgId} name="clg_id" label="College Id" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" onChange={(e) => setyear(e.target.value)} value={year} name="year" label="Year" InputProps={{ sx: { height: 38 } }} />
-                       
-                                    
+
+
                         <TextField className="txtfld" onChange={(e) => setcot(e.target.value)} value={cot} name="contact" label="Contact" InputProps={{ sx: { height: 38 } }} />
-                        
-                        
-                        
+
+
+
                         <TextField className="txtfld" value={s_id} InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" value={pass} InputProps={{ sx: { height: 38 } }} />
                         <h5>Bank Details</h5>
                         <TextField className="txtfld" onChange={(e) => setbankaccno(e.target.value)} value={bankaccountno} name="bankaccountno" label="Bank Account Number" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" onChange={(e) => setbankname(e.target.value)} value={bankname} name="bankname" label="Bank Name" InputProps={{ sx: { height: 38 } }} />
                         <TextField className="txtfld" onChange={(e) => setbankaddress(e.target.value)} value={bankaddress} name="bankaddress" label="Branch Address" InputProps={{ sx: { height: 38 } }} />
-                       
+
                         <TextField className="txtfld" onChange={(e) => setbanknumber(e.target.value)} value={banknumber} name="banknumber" label="Bank Phone Number" InputProps={{ sx: { height: 38 } }} />
                         <FormControl fullWidth className="txtfld">
-                        <InputLabel id="demo-simple-select-label" >Code Type</InputLabel>
-                           
+                            <InputLabel id="demo-simple-select-label" >Code Type</InputLabel>
+
                             <Select
-                                
+
                                 sx={{ height: 45 }}
-                                
+
                                 onChange={(e) => setcodetype(e.target.value)} value={codetype}
                                 // onChange={(e) => setcls(e.target.value)}
                                 name="cd"
@@ -645,7 +645,7 @@ export default function ManageStd() {
                                     <MenuItem onChange={(e) => setcodetype(e.target.value)} value={val.cd1}>{val.cd1}</MenuItem>
                                 ))}
                             </Select>
-                        </FormControl>            
+                        </FormControl>
                         <TextField className="txtfld" onChange={(e) => setcode(e.target.value)} value={code} name="code" label="Code" InputProps={{ sx: { height: 38 } }} />
 
                         <input type="file" className="txtxfld2 " name="img" required />
